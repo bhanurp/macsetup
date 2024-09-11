@@ -79,10 +79,3 @@ install_and_log "Git Global Config" "git config --global user.name 'Your Name' &
 echo "Installation and configuration complete."
 echo "Check $log_file for a summary of installation statuses."
 """
-
-# Save the shell script to a file
-script_path = "/mnt/data/setup_macos.sh"
-with open(script_path, 'w') as script_file:
-    script_file.write(shell_script)
-
-script_path

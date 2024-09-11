@@ -1,5 +1,6 @@
 # macos setup
-A collection of commands for setting up a new macos machine
+A collection of commands for setting up a new macos machine. Run `./macsetup.sh` to install all via script.
+The script also logs status to installation_status.log file.
 
 ### Install Homebrew
 

@@ -16,6 +16,7 @@ Configure shell using below
 `p10k configure`
 
 ### Install Dev Tools
+![Copy Command](https://img.shields.io/badge/Copy-Command-blue?logo=copy)
 
 `brew install git`
 

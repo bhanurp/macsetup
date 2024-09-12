@@ -1,6 +1,22 @@
-# macos setup
-A collection of commands for setting up a new macos machine. Run `./macsetup.sh` to install all via script.
-The script also logs status to installation_status.log file.
+# Mac Setup Script
+
+This script automates the installation and configuration of various tools and applications on a macOS system using Homebrew.
+
+## Features
+
+- Installs a list of predefined tools and applications.
+- Checks the installation status of each tool.
+- Displays a formatted table with the status of each tool.
+- Prompts the user to install all non-available binaries.
+
+## Usage
+
+### Checking Installation Status
+
+To check the installation status of all predefined tools and applications, use the `--status` flag:
+
+```sh
+./macsetup.sh --status
 
 ### Install Homebrew
 
@@ -89,6 +105,26 @@ nvm install stable
 ```
 brew install httpie
 ```
+
+```
+brew install k9s
+```
+
+```
+brew install aws
+```
+
+```
+brew install --cask sdm
+```
+
+```
+brew install jfrog-cli
+```
+
+```
+brew install kubectl
+```
 ### Browsers
 
 ```
@@ -160,4 +196,10 @@ killall Finder
 git config --global user.name "Your Name"
 git config --global user.email "your.email@example.com"
 git config --global core.editor vim
+```
+
+### Music
+
+```
+brew install spotify
 ```

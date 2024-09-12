@@ -1,9 +1,30 @@
 #!/bin/bash
 
-# Log file to store the installation status
-log_file="installation_status.log"
-echo -e "Tool\t\tStatus" > $log_file
+# ANSI color codes
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
 
+# Function to check and log the status
+check_and_log() {
+  tool_name=$1
+  check_command=$2
+
+  # Check if installed via Homebrew
+  eval "$check_command" &> /dev/null
+  if [ $? -eq 0 ]; then
+    printf "%-20s ${GREEN}%s${NC}\n" "$tool_name" "Already Installed (via brew)"
+  else
+    # Check if installed directly
+    if command -v $tool_name &> /dev/null; then
+      printf "%-20s ${GREEN}%s${NC}\n" "$tool_name" "Already Installed (not via brew)"
+    else
+      printf "%-20s ${RED}%s${NC}\n" "$tool_name" "Not Installed"
+    fi
+  fi
+}
+
+# Function to install and log the status
 install_and_log() {
   tool_name=$1
   install_command=$2
@@ -13,69 +34,81 @@ install_and_log() {
   
   if [ $? -eq 0 ]; then
     echo "$tool_name installed successfully."
-    echo -e "$tool_name\t\tSuccess" >> $log_file
   else
     echo "$tool_name installation failed."
-    echo -e "$tool_name\t\tFailed" >> $log_file
   fi
 }
 
-# Install Homebrew
-install_and_log "Homebrew" '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+# Tools list
+tools=(
+  "brew:/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\":brew --version"
+  "zsh:brew install zsh:zsh --version"
+  "omz:brew install oh-my-zsh:omz --version"
+  "powerlevel10k:brew install powerlevel10k && echo \"source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme\" >>~/.zshrc:brew list powerlevel10k"
+  "git:brew install git:git --version"
+  "iterm2:brew install --cask iterm2:brew list --cask iterm2"
+  "python3:brew install python:python3 --version"
+  "go:brew install go:go version"
+  "java:brew install openjdk@17:java -version"
+  "code:brew install --cask visual-studio-code:brew list --cask visual-studio-code"
+  "slack:brew install --cask slack:brew list --cask slack"
+  "postman:brew install --cask postman:brew list --cask postman"
+  "jq:brew install jq:jq --version"
+  "docker:brew install --cask docker:brew list --cask docker"
+  "rancher:brew install --cask rancher:brew list --cask rancher"
+  "gh:brew install gh:gh --version"
+  "nvm:curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && export NVM_DIR=\"$HOME/.nvm\" && nvm install stable:nvm --version"
+  "http:brew install httpie:http --version"
+  "k9s:brew install k9s:k9s version"
+  "aws:brew install aws:aws --version"
+  "sdm:brew install --cask sdm:brew list --cask sdm"
+  "jfrog:brew install jfrog-cli:jfrog --version"
+  "kubectl:brew install kubectl:kubectl version --client"
+  "arc:brew install --cask arc:brew list --cask arc"
+  "brave:brew install --cask brave-browser:brew list --cask brave-browser"
+  "rectangle:brew install rectangle:brew list rectangle"
+  "speedtest:brew install speedtest-cli:speedtest --version"
+  "bat:brew install bat:bat --version"
+  "clipper:brew install clipper:clipper --version"
+  "spotify:brew install spotify:brew list spotify"
+)
 
-# Install ZSH
-install_and_log "ZSH" "brew install zsh"
+# Check if the --status flag is provided
+if [[ "$1" == "--status" ]]; then
+  printf "%-20s %s\n" "--------------------" "--------------------"
+  printf "%-20s %s\n" "Tool" "Status"
+  printf "%-20s %s\n" "--------------------" "--------------------"
+  for tool in "${tools[@]}"; do
+    IFS=":" read -r tool_name install_command check_command <<< "$tool"
+    check_and_log "$tool_name" "$check_command"
+  done
+  printf "%-20s %s\n" "--------------------" "--------------------"
 
-# Install Oh My Zsh
-install_and_log "Oh My Zsh" "brew install oh-my-zsh"
+  # Display non-available binaries
+  echo -e "\nNon-Available Binaries on Mac:"
+  non_available_tools=()
+  for tool in "${tools[@]}"; do
+    IFS=":" read -r tool_name install_command check_command <<< "$tool"
+    eval "$check_command" &> /dev/null
+    if [ $? -ne 0 ] && ! command -v $tool_name &> /dev/null; then
+      printf "%-20s\n" "$tool_name"
+      non_available_tools+=("$tool")
+    fi
+  done
 
-# Install Powerlevel10k
-install_and_log "Powerlevel10k" "brew install powerlevel10k && echo \"source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme\" >>~/.zshrc"
+  # Ask user if they want to proceed with installation
+  read -p "Would you like to proceed with the installation of all non-available binaries? [Y/n] " response
+  response=$(echo "$response" | tr '[:upper:]' '[:lower:]') # Convert to lowercase
+  if [[ "$response" =~ ^(yes|y| ) ]] || [[ -z "$response" ]]; then
+    for tool in "${non_available_tools[@]}"; do
+      IFS=":" read -r tool_name install_command check_command <<< "$tool"
+      install_and_log "$tool_name" "$install_command"
+    done
+  else
+    echo "Installation aborted."
+  fi
+  exit 0
+fi
 
-# Dev Tools Installations
-install_and_log "Git" "brew install git"
-install_and_log "iTerm2" "brew install --cask iterm2"
-install_and_log "Python" "brew install python"
-install_and_log "Go" "brew install go"
-install_and_log "OpenJDK@17" "brew install openjdk@17"
-install_and_log "VS Code" "brew install --cask visual-studio-code"
-install_and_log "Slack" "brew install --cask slack"
-install_and_log "Postman" "brew install --cask postman"
-install_and_log "jq" "brew install jq"
-install_and_log "Docker" "brew install --cask docker"
-install_and_log "Rancher" "brew install --cask rancher"
-install_and_log "GitHub CLI" "brew install gh"
-install_and_log "nvm" "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && export NVM_DIR=\"$HOME/.nvm\" && nvm install stable"
-install_and_log "HTTPie" "brew install httpie"
-
-# Browsers
-install_and_log "Arc Browser" "brew install --cask arc"
-install_and_log "Brave Browser" "brew install --cask brave-browser"
-
-# Productivity Tools
-install_and_log "Rectangle" "brew install rectangle"
-install_and_log "Speedtest CLI" "brew install speedtest-cli"
-install_and_log "bat" "brew install bat"
-install_and_log "Clipper" "brew install clipper"
-
-# Additional Configurations
-echo "Setting macOS configurations..."
-
-# Show hidden files
-install_and_log "Show Hidden Files" "defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
-
-# Speed up Dock auto-hide delay
-install_and_log "Speedup Dock Auto-Hide" "defaults write com.apple.dock autohide-delay -float 0 && defaults write com.apple.dock autohide-time-modifier -float 0.5 && killall Dock"
-
-# Make Vim the default editor
-install_and_log "Set Vim as Default Editor" "export EDITOR=vim && export VISUAL=vim"
-
-# Show full path in Finder title bar
-install_and_log "Show Full Path in Finder" "defaults write com.apple.finder _FXShowPosixPathInTitle -bool true && killall Finder"
-
-# Git global config
-install_and_log "Git Global Config" "git config --global user.name 'Your Name' && git config --global user.email 'your.email@example.com' && git config --global core.editor vim"
-
-echo "Installation and configuration complete."
-echo "Check $log_file for a summary of installation statuses."
-"""
+# If no flag is provided, just print a message
+echo "Please provide the --status flag to check the installation status of binaries."

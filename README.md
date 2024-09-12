@@ -17,6 +17,7 @@ To check the installation status of all predefined tools and applications, use t
 
 ```sh
 ./macsetup.sh --status
+```
 
 ### Install Homebrew
 

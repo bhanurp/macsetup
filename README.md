@@ -126,6 +126,19 @@ brew install jfrog-cli
 ```
 brew install kubectl
 ```
+
+```
+brew install fzf
+```
+
+```
+brew install tree
+```
+
+```
+brew install git-lfs
+```
+
 ### Browsers
 
 ```

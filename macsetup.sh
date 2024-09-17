@@ -71,6 +71,9 @@ tools=(
   "bat:brew install bat:bat --version"
   "clipper:brew install clipper:clipper --version"
   "spotify:brew install spotify:brew list spotify"
+  "fzf:brew install fzf"
+  "tree:brew install tree"
+  "git-lfs:brew install git-lfs"
 )
 
 # Check if the --status flag is provided

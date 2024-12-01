@@ -39,6 +39,32 @@ install_and_log() {
   fi
 }
 
+# Function to setup alias
+setup_alias() {
+  alias ls=lsd
+  alias ll='ls -latrh'
+  alias cat=bat
+}
+
+# Function to check and install Homebrew
+check_and_install_brew() {
+    # Check if brew is installed
+    if command -v brew >/dev/null 2>&1; then
+        echo "Homebrew is already installed."
+    else
+        echo "Homebrew is not installed. Installing now..."
+        # Install Homebrew
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        if [ $? -eq 0 ]; then
+            echo "Homebrew installed successfully."
+        else
+            echo "Failed to install Homebrew. Please check your internet connection or permissions."
+            exit 1
+        fi
+    fi
+}
+
+
 # Tools list
 tools=(
   "brew:/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\":brew --version"
@@ -74,10 +100,14 @@ tools=(
   "fzf:brew install fzf"
   "tree:brew install tree"
   "git-lfs:brew install git-lfs"
+  "lsd:brew install lsd"
+  "whatsapp: brew install whatsapp"
+  "ffmpeg: brew install ffmpeg"
 )
 
 # Check if the --status flag is provided
 if [[ "$1" == "--status" ]]; then
+  check_and_install_brew
   printf "%-20s %s\n" "--------------------" "--------------------"
   printf "%-20s %s\n" "Tool" "Status"
   printf "%-20s %s\n" "--------------------" "--------------------"

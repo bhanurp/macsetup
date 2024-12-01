@@ -9,6 +9,12 @@ This script automates the installation and configuration of various tools and ap
 - Displays a formatted table with the status of each tool.
 - Prompts the user to install all non-available binaries.
 
+##
+
+```shellscript
+curl -sSL https://raw.githubusercontent.com/bhanurp/macsetup/main/macsetup.sh | bash -s -- --status
+```
+
 ## Usage
 
 ### Checking Installation Status

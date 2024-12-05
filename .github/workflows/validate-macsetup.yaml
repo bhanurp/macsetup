@@ -20,6 +20,24 @@ jobs:
           chmod +x macsetup.sh
           ./macsetup.sh --skip
 
+      - name: Set up Homebrew
+        run: |
+          if ! command -v brew &> /dev/null; then
+            echo "Installing Homebrew..."
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          else
+            echo "Homebrew is already installed."
+          fi
+
+      - name: Install jq
+        run: |
+          if ! command -v jq &> /dev/null; then
+            echo "Installing jq..."
+            brew install jq
+          else
+            echo "jq is already installed."
+          fi
+
       - name: Validate installation
         run: |
           # Read validation commands from config/tools.json and run them

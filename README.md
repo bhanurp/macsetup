@@ -4,14 +4,22 @@ This script automates the installation and configuration of various tools and ap
 
 ## Features
 
-- Installs a list of predefined tools and applications.
-- Checks the installation status of each tool.
-- Displays a formatted table with the status of each tool.
+- Installs a list of predefined tools defined in tools.json.
+    - Sample json
+    ```json
+    {
+      "name": "go",
+      "install_command": "brew install go",
+      "verify_command": "go version"
+    }
+    ```
+- Checks the installation status of each tool using the verify_command.
+- Displays a formatted table with the status of each tool given in tools.json.
 - Prompts the user to install all non-available binaries.
 
 ##
 
-```shellscript
+```sh
 curl -sSL https://raw.githubusercontent.com/bhanurp/macsetup/main/macsetup.sh | bash -s -- --status
 ```
 

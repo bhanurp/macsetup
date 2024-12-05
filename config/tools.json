@@ -1,0 +1,182 @@
+[
+    {
+      "name": "brew",
+      "install_command": "/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"",
+      "verify_command": "brew --version"
+    },
+    {
+      "name": "zsh",
+      "install_command": "brew install zsh",
+      "verify_command": "zsh --version"
+    },
+    {
+      "name": "omz",
+      "install_command": "brew install oh-my-zsh",
+      "verify_command": "omz --version"
+    },
+    {
+      "name": "powerlevel10k",
+      "install_command": "brew install powerlevel10k && echo \"source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme\" >>~/.zshrc",
+      "verify_command": "brew list powerlevel10k"
+    },
+    {
+      "name": "git",
+      "install_command": "brew install git",
+      "verify_command": "git --version"
+    },
+    {
+      "name": "iterm2",
+      "install_command": "brew install --cask iterm2",
+      "verify_command": "brew list --cask iterm2"
+    },
+    {
+      "name": "python3",
+      "install_command": "brew install python",
+      "verify_command": "python3 --version"
+    },
+    {
+      "name": "go",
+      "install_command": "brew install go",
+      "verify_command": "go version"
+    },
+    {
+      "name": "java",
+      "install_command": "brew install openjdk@17",
+      "verify_command": "java -version"
+    },
+    {
+      "name": "code",
+      "install_command": "brew install --cask visual-studio-code",
+      "verify_command": "brew list --cask visual-studio-code"
+    },
+    {
+      "name": "slack",
+      "install_command": "brew install --cask slack",
+      "verify_command": "brew list --cask slack"
+    },
+    {
+      "name": "postman",
+      "install_command": "brew install --cask postman",
+      "verify_command": "brew list --cask postman"
+    },
+    {
+      "name": "jq",
+      "install_command": "brew install jq",
+      "verify_command": "jq --version"
+    },
+    {
+      "name": "docker",
+      "install_command": "brew install --cask docker",
+      "verify_command": "brew list --cask docker"
+    },
+    {
+      "name": "rancher",
+      "install_command": "brew install --cask rancher",
+      "verify_command": "brew list --cask rancher"
+    },
+    {
+      "name": "gh",
+      "install_command": "brew install gh",
+      "verify_command": "gh --version"
+    },
+    {
+      "name": "nvm",
+      "install_command": "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && export NVM_DIR=\"$HOME/.nvm\" && nvm install stable",
+      "verify_command": "nvm --version"
+    },
+    {
+      "name": "http",
+      "install_command": "brew install httpie",
+      "verify_command": "http --version"
+    },
+    {
+      "name": "k9s",
+      "install_command": "brew install k9s",
+      "verify_command": "k9s version"
+    },
+    {
+      "name": "aws",
+      "install_command": "brew install aws",
+      "verify_command": "aws --version"
+    },
+    {
+      "name": "sdm",
+      "install_command": "brew install --cask sdm",
+      "verify_command": "brew list --cask sdm"
+    },
+    {
+      "name": "jfrog",
+      "install_command": "brew install jfrog-cli",
+      "verify_command": "jfrog --version"
+    },
+    {
+      "name": "kubectl",
+      "install_command": "brew install kubectl",
+      "verify_command": "kubectl version --client"
+    },
+    {
+      "name": "arc",
+      "install_command": "brew install --cask arc",
+      "verify_command": "brew list --cask arc"
+    },
+    {
+      "name": "brave",
+      "install_command": "brew install --cask brave-browser",
+      "verify_command": "brew list --cask brave-browser"
+    },
+    {
+      "name": "rectangle",
+      "install_command": "brew install rectangle",
+      "verify_command": "brew list rectangle"
+    },
+    {
+      "name": "speedtest",
+      "install_command": "brew install speedtest-cli",
+      "verify_command": "speedtest --version"
+    },
+    {
+      "name": "bat",
+      "install_command": "brew install bat",
+      "verify_command": "bat --version"
+    },
+    {
+      "name": "clipper",
+      "install_command": "brew install clipper",
+      "verify_command": "clipper --version"
+    },
+    {
+      "name": "spotify",
+      "install_command": "brew install spotify",
+      "verify_command": "brew list spotify"
+    },
+    {
+      "name": "fzf",
+      "install_command": "brew install fzf",
+      "verify_command": ""
+    },
+    {
+      "name": "tree",
+      "install_command": "brew install tree",
+      "verify_command": ""
+    },
+    {
+      "name": "git-lfs",
+      "install_command": "brew install git-lfs",
+      "verify_command": ""
+    },
+    {
+      "name": "lsd",
+      "install_command": "brew install lsd",
+      "verify_command": ""
+    },
+    {
+      "name": "whatsapp",
+      "install_command": "brew install whatsapp",
+      "verify_command": ""
+    },
+    {
+      "name": "ffmpeg",
+      "install_command": "brew install ffmpeg",
+      "verify_command": ""
+    }
+  ]

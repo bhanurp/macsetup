@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# ANSI color codes
+# Define color codes
 GREEN='\033[0;32m'
 RED='\033[0;31m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-# Function to check and log the status
+# check and log the status
 check_and_log() {
   tool_name=$1
   check_command=$2
@@ -24,30 +24,75 @@ check_and_log() {
   fi
 }
 
-# Function to install and log the status
+# install and log the status
 install_and_log() {
   tool_name=$1
   install_command=$2
+  verify_command=$3
 
   echo "Installing $tool_name..."
   eval "$install_command"
   
   if [ $? -eq 0 ]; then
-    echo "$tool_name installed successfully."
+    echo -e "${GREEN}$tool_name installed successfully.${NC}"
+    if [ -n "$verify_command" ]; then
+      echo "Verifying $tool_name installation..."
+      eval "$verify_command"
+      if [ $? -eq 0 ]; then
+        echo -e "${GREEN}$tool_name verification successful.${NC}"
+      else
+        echo -e "${RED}$tool_name verification failed.${NC}"
+      fi
+    else
+      echo "Verification skipped for $tool_name since verification command is not provided."
+    fi
   else
-    echo "$tool_name installation failed."
+    echo -e "${RED}$tool_name installation failed.${NC}"
   fi
 }
 
-# Function to setup alias
+# setup alias
 setup_alias() {
+  read -p "Do you want to set up the following aliases? (y/n): 
   alias ls=lsd
   alias ll='ls -latrh'
   alias cat=bat
+  " response
+
+  if [[ "$response" =~ ^[Yy]$ ]]; then
+    alias ls=lsd
+    alias ll='ls -latrh'
+    alias cat=bat
+
+    write_to_shell_profile "alias ls=lsd"
+    write_to_shell_profile "alias ll='ls -latrh'"
+    write_to_shell_profile "alias cat=bat"
+    echo "Aliases have been added to your shell profile."
+  else
+    echo "Aliases setup skipped."
+  fi
 }
 
-# Function to check and install Homebrew
-check_and_install_brew() {
+# detect shell and write content to the appropriate profile
+write_to_shell_profile() {
+  content=$1
+
+  if [ "$SHELL" = "/bin/bash" ]; then
+    profile_file="$HOME/.bashrc"
+  elif [ "$SHELL" = "/bin/zsh" ]; then
+    profile_file="$HOME/.zshrc"
+  else
+    echo "Unsupported shell: $SHELL"
+    return 1
+  fi
+
+  echo "Writing to $profile_file..."
+  echo "$content" >> "$profile_file"
+  echo "Content written to $profile_file. Please restart your shell or run 'source $profile_file' to apply the changes."
+}
+
+# install Homebrew
+install_brew() {
     # Check if brew is installed
     if command -v brew >/dev/null 2>&1; then
         echo "Homebrew is already installed."
@@ -56,92 +101,125 @@ check_and_install_brew() {
         # Install Homebrew
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         if [ $? -eq 0 ]; then
-            echo "Homebrew installed successfully."
+            echo -e "${GREEN}Homebrew installed successfully.${NC}"
         else
-            echo "Failed to install Homebrew. Please check your internet connection or permissions."
+            echo -e "${RED}Failed to install Homebrew. Please check your internet connection or permissions.${NC}"
             exit 1
         fi
     fi
 }
 
-
-# Tools list
-tools=(
-  "brew:/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\":brew --version"
-  "zsh:brew install zsh:zsh --version"
-  "omz:brew install oh-my-zsh:omz --version"
-  "powerlevel10k:brew install powerlevel10k && echo \"source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme\" >>~/.zshrc:brew list powerlevel10k"
-  "git:brew install git:git --version"
-  "iterm2:brew install --cask iterm2:brew list --cask iterm2"
-  "python3:brew install python:python3 --version"
-  "go:brew install go:go version"
-  "java:brew install openjdk@17:java -version"
-  "code:brew install --cask visual-studio-code:brew list --cask visual-studio-code"
-  "slack:brew install --cask slack:brew list --cask slack"
-  "postman:brew install --cask postman:brew list --cask postman"
-  "jq:brew install jq:jq --version"
-  "docker:brew install --cask docker:brew list --cask docker"
-  "rancher:brew install --cask rancher:brew list --cask rancher"
-  "gh:brew install gh:gh --version"
-  "nvm:curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && export NVM_DIR=\"$HOME/.nvm\" && nvm install stable:nvm --version"
-  "http:brew install httpie:http --version"
-  "k9s:brew install k9s:k9s version"
-  "aws:brew install aws:aws --version"
-  "sdm:brew install --cask sdm:brew list --cask sdm"
-  "jfrog:brew install jfrog-cli:jfrog --version"
-  "kubectl:brew install kubectl:kubectl version --client"
-  "arc:brew install --cask arc:brew list --cask arc"
-  "brave:brew install --cask brave-browser:brew list --cask brave-browser"
-  "rectangle:brew install rectangle:brew list rectangle"
-  "speedtest:brew install speedtest-cli:speedtest --version"
-  "bat:brew install bat:bat --version"
-  "clipper:brew install clipper:clipper --version"
-  "spotify:brew install spotify:brew list spotify"
-  "fzf:brew install fzf"
-  "tree:brew install tree"
-  "git-lfs:brew install git-lfs"
-  "lsd:brew install lsd"
-  "whatsapp: brew install whatsapp"
-  "ffmpeg: brew install ffmpeg"
-)
-
-# Check if the --status flag is provided
-if [[ "$1" == "--status" ]]; then
-  check_and_install_brew
-  printf "%-20s %s\n" "--------------------" "--------------------"
-  printf "%-20s %s\n" "Tool" "Status"
-  printf "%-20s %s\n" "--------------------" "--------------------"
-  for tool in "${tools[@]}"; do
-    IFS=":" read -r tool_name install_command check_command <<< "$tool"
-    check_and_log "$tool_name" "$check_command"
-  done
-  printf "%-20s %s\n" "--------------------" "--------------------"
-
-  # Display non-available binaries
-  echo -e "\nNon-Available Binaries on Mac:"
-  non_available_tools=()
-  for tool in "${tools[@]}"; do
-    IFS=":" read -r tool_name install_command check_command <<< "$tool"
-    eval "$check_command" &> /dev/null
-    if [ $? -ne 0 ] && ! command -v $tool_name &> /dev/null; then
-      printf "%-20s\n" "$tool_name"
-      non_available_tools+=("$tool")
+# check and install jq
+check_and_install_jq() {
+    if command -v jq >/dev/null 2>&1; then
+        echo "jq is already installed."
+    else
+        echo "jq is not installed. Installing now..."
+        brew install jq
+        if [ $? -eq 0 ]; then
+            echo -e "${GREEN}jq installed successfully.${NC}"
+        else
+            echo -e "${RED}Failed to install jq. Please check your internet connection or permissions.${NC}"
+            exit 1
+        fi
     fi
-  done
+}
 
-  # Ask user if they want to proceed with installation
-  read -p "Would you like to proceed with the installation of all non-available binaries? [Y/n] " response
-  response=$(echo "$response" | tr '[:upper:]' '[:lower:]') # Convert to lowercase
-  if [[ "$response" =~ ^(yes|y| ) ]] || [[ -z "$response" ]]; then
-    for tool in "${non_available_tools[@]}"; do
-      IFS=":" read -r tool_name install_command check_command <<< "$tool"
-      install_and_log "$tool_name" "$install_command"
-    done
-  else
-    echo "Installation aborted."
-  fi
-  exit 0
+# Read tools from JSON file and install them
+install_tools_from_json() {
+  json_file=$1
+  tools=$(jq -c '.[]' "$json_file")
+
+  for tool in $tools; do
+    name=$(echo "$tool" | jq -r '.name')
+    install_command=$(echo "$tool" | jq -r '.install_command')
+    verify_command=$(echo "$tool" | jq -r '.verify_command')
+
+    install_and_log "$name" "$install_command" "$verify_command"
+  done
+}
+
+# Install Homebrew
+install_brew
+
+# Check and install jq
+check_and_install_jq
+
+# Check if ~/.macsetup directory exists and create it if necessary
+macsetup_dir="$HOME/.macsetup"
+if [ ! -d "$macsetup_dir" ]; then
+  echo "Directory $macsetup_dir does not exist. Creating now..."
+  mkdir -p "$macsetup_dir"
 fi
 
-# If no flag is provided, just print a message
-echo "Please provide the --status flag to check the installation status of binaries."
+# Parse command-line arguments
+skip_download=false
+while [[ "$1" != "" ]]; do
+  case $1 in
+    --skip)
+      skip_download=true
+      ;;
+    --status)
+      check_and_install_brew
+      printf "%-20s %s\n" "--------------------" "--------------------"
+      printf "%-20s %s\n" "Tool" "Status"
+      printf "%-20s %s\n" "--------------------" "--------------------"
+      for tool in "${tools[@]}"; do
+        IFS=":" read -r tool_name install_command check_command <<< "$tool"
+        check_and_log "$tool_name" "$check_command"
+      done
+      printf "%-20s %s\n" "--------------------" "--------------------"
+
+      # Display non-available binaries
+      echo -e "\nNon-Available Binaries on Mac:"
+      non_available_tools=()
+      for tool in "${tools[@]}"; do
+        IFS=":" read -r tool_name install_command check_command <<< "$tool"
+        eval "$check_command" &> /dev/null
+        if [ $? -ne 0 ] && ! command -v $tool_name &> /dev/null; then
+          printf "%-20s\n" "$tool_name"
+          non_available_tools+=("$tool")
+        fi
+      done
+
+      # Ask user if they want to proceed with installation
+      read -p "Would you like to proceed with the installation of all non-available binaries? [Y/n] " response
+      response=$(echo "$response" | tr '[:upper:]' '[:lower:]') # Convert to lowercase
+      if [[ "$response" =~ ^(yes|y| ) ]] || [[ -z "$response" ]]; then
+        for tool in "${non_available_tools[@]}"; do
+          IFS=":" read -r tool_name install_command check_command <<< "$tool"
+          install_and_log "$tool_name" "$install_command"
+        done
+      else
+        echo "Installation aborted."
+      fi
+      exit 0
+      ;;
+    *)
+      echo "Usage: $0 [--skip] [--status]"
+      echo "  --skip    Skip downloading tools.json from URL and use existing file in ~/.macsetup"
+      echo "  --status  Check the status of tools and install non-available binaries"
+      exit 1
+      ;;
+  esac
+  shift
+done
+
+# Download the default tools.json into ~/.macsetup if not skipping
+if [ "$skip_download" = false ]; then
+  echo "Downloading tools.json..."
+  curl -L -o "$macsetup_dir/tools.json" "https://raw.githubusercontent.com/bhanurp/macsetup/main/config/tools.json"
+else
+  echo "Skipping download of tools.json and using existing file in ~/.macsetup"
+fi
+
+# Process JSON files in ~/.macsetup directory
+for json_file in "$macsetup_dir"/*.json; do
+  # Ignore files with .json.d extension
+  if [[ "$json_file" != *.json.d ]]; then
+    install_tools_from_json "$json_file"
+  fi
+done
+
+# Call setup_alias function
+setup_alias

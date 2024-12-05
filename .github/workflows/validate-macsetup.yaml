@@ -1,0 +1,41 @@
+name: Validate macsetup.sh
+
+on: [push, pull_request]
+
+jobs:
+  validate-macsetup:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, macos-11]
+        arch: [x64, arm64]
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run macsetup.sh
+        run: |
+          chmod +x macsetup.sh
+          ./macsetup.sh --skip
+
+      - name: Validate installation
+        run: |
+          # Read validation commands from config/tools.json and run them
+          tools=$(jq -c '.[]' config/tools.json)
+          for tool in $tools; do
+            name=$(echo "$tool" | jq -r '.name')
+            verify_command=$(echo "$tool" | jq -r '.verify_command')
+            if [ -n "$verify_command" ]; then
+              echo "Validating $name..."
+              eval "$verify_command"
+              if [ $? -eq 0 ]; then
+                echo -e "${GREEN}$name validation successful.${NC}"
+              else
+                echo -e "${RED}$name validation failed.${NC}"
+              fi
+            else
+              echo "No validation command provided for $name."
+            fi
+          done

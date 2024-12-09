@@ -92,7 +92,7 @@ write_to_shell_profile() {
 }
 
 # Function to install Homebrew
-check_and_install_brew() {
+install_brew() {
     # Check if brew is installed
     if command -v brew >/dev/null 2>&1; then
         echo "Homebrew is already installed."
@@ -139,8 +139,21 @@ install_tools_from_json() {
   done
 }
 
+# Check non-available tools
+check_non_available_tools() {
+  non_available_tools=()
+  for tool in "${tools[@]}"; do
+    IFS=":" read -r tool_name install_command check_command <<< "$tool"
+    eval "$check_command" &> /dev/null
+    if [ $? -ne 0 ] && ! command -v $tool_name &> /dev/null; then
+      printf "%-20s\n" "$tool_name"
+      non_available_tools+=("$tool")
+    fi
+  done
+}
+
 # Install Homebrew
-check_and_install_brew
+install_brew
 
 # Check and install jq
 check_and_install_jq
@@ -176,15 +189,7 @@ while [[ "$1" != "" ]]; do
 
       # Display non-available binaries
       echo -e "\nNon-Available Binaries on Mac:"
-      non_available_tools=()
-      for tool in "${tools[@]}"; do
-        IFS=":" read -r tool_name install_command check_command <<< "$tool"
-        eval "$check_command" &> /dev/null
-        if [ $? -ne 0 ] && ! command -v $tool_name &> /dev/null; then
-          printf "%-20s\n" "$tool_name"
-          non_available_tools+=("$tool")
-        fi
-      done
+      check_non_available_tools
 
       # Ask user if they want to proceed with installation
       if [ "$auto_install" = true ]; then
@@ -194,10 +199,15 @@ while [[ "$1" != "" ]]; do
       fi
       response=$(echo "$response" | tr '[:upper:]' '[:lower:]') # Convert to lowercase
       if [[ "$response" =~ ^(yes|y| ) ]] || [[ -z "$response" ]]; then
+        echo "Proceeding with installation..."
         for tool in "${non_available_tools[@]}"; do
           IFS=":" read -r tool_name install_command check_command <<< "$tool"
           install_and_log "$tool_name" "$install_command"
         done
+
+        # Re-run the check for non-available tools after installation
+        echo -e "\nRe-checking non-available binaries on Mac:"
+        check_non_available_tools
       else
         echo "Installation aborted."
       fi

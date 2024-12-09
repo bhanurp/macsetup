@@ -51,7 +51,7 @@ install_and_log() {
   fi
 }
 
-#setup alias
+# Function to setup alias
 setup_alias() {
   read -p "Do you want to set up the following aliases? (y/n): 
   alias ls=lsd
@@ -73,7 +73,7 @@ setup_alias() {
   fi
 }
 
-#detect shell and write content to the appropriate profile
+# Function to detect shell and write content to the appropriate profile
 write_to_shell_profile() {
   content=$1
 
@@ -91,7 +91,7 @@ write_to_shell_profile() {
   echo "Content written to $profile_file. Please restart your shell or run 'source $profile_file' to apply the changes."
 }
 
-#install Homebrew
+# Function to install Homebrew
 install_brew() {
     # Check if brew is installed
     if command -v brew >/dev/null 2>&1; then
@@ -109,7 +109,7 @@ install_brew() {
     fi
 }
 
-#check and install jq
+# Function to check and install jq
 check_and_install_jq() {
     if command -v jq >/dev/null 2>&1; then
         echo "jq is already installed."
@@ -154,10 +154,14 @@ fi
 
 # Parse command-line arguments
 skip_download=false
+auto_install=false
 while [[ "$1" != "" ]]; do
   case $1 in
     --skip)
       skip_download=true
+      ;;
+    --install)
+      auto_install=true
       ;;
     --status)
       check_and_install_brew
@@ -183,7 +187,11 @@ while [[ "$1" != "" ]]; do
       done
 
       # Ask user if they want to proceed with installation
-      read -p "Would you like to proceed with the installation of all non-available binaries? [Y/n] " response
+      if [ "$auto_install" = true ]; then
+        response="y"
+      else
+        read -p "Would you like to proceed with the installation of all non-available binaries? [Y/n] " response
+      fi
       response=$(echo "$response" | tr '[:upper:]' '[:lower:]') # Convert to lowercase
       if [[ "$response" =~ ^(yes|y| ) ]] || [[ -z "$response" ]]; then
         for tool in "${non_available_tools[@]}"; do
@@ -196,8 +204,9 @@ while [[ "$1" != "" ]]; do
       exit 0
       ;;
     *)
-      echo "Usage: $0 [--skip] [--status]"
+      echo "Usage: $0 [--skip] [--install] [--status]"
       echo "  --skip    Skip downloading tools.json from URL and use existing file in ~/.macsetup"
+      echo "  --install Automatically proceed with the installation of all non-available binaries"
       echo "  --status  Check the status of tools and install non-available binaries"
       exit 1
       ;;

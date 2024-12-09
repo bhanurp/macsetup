@@ -92,7 +92,7 @@ write_to_shell_profile() {
 }
 
 # Function to install Homebrew
-install_brew() {
+check_and_install_brew() {
     # Check if brew is installed
     if command -v brew >/dev/null 2>&1; then
         echo "Homebrew is already installed."
@@ -140,7 +140,7 @@ install_tools_from_json() {
 }
 
 # Install Homebrew
-install_brew
+check_and_install_brew
 
 # Check and install jq
 check_and_install_jq

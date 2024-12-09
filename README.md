@@ -17,10 +17,10 @@ This script automates the installation and configuration of various tools and ap
 - Displays a formatted table with the status of each tool given in tools.json.
 - Prompts the user to install all non-available binaries.
 
-##
+## Installation command example
 
 ```sh
-curl -sSL https://raw.githubusercontent.com/bhanurp/macsetup/main/macsetup.sh | bash -s -- --status
+curl -sSL https://raw.githubusercontent.com/bhanurp/macsetup/main/macsetup.sh | bash -s -- --status --install
 ```
 
 ## Usage

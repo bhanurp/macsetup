@@ -51,7 +51,7 @@ install_and_log() {
   fi
 }
 
-# setup alias
+#setup alias
 setup_alias() {
   read -p "Do you want to set up the following aliases? (y/n): 
   alias ls=lsd
@@ -73,7 +73,7 @@ setup_alias() {
   fi
 }
 
-# detect shell and write content to the appropriate profile
+#detect shell and write content to the appropriate profile
 write_to_shell_profile() {
   content=$1
 
@@ -91,7 +91,7 @@ write_to_shell_profile() {
   echo "Content written to $profile_file. Please restart your shell or run 'source $profile_file' to apply the changes."
 }
 
-# install Homebrew
+#install Homebrew
 install_brew() {
     # Check if brew is installed
     if command -v brew >/dev/null 2>&1; then
@@ -109,7 +109,7 @@ install_brew() {
     fi
 }
 
-# check and install jq
+#check and install jq
 check_and_install_jq() {
     if command -v jq >/dev/null 2>&1; then
         echo "jq is already installed."
@@ -205,20 +205,26 @@ while [[ "$1" != "" ]]; do
   shift
 done
 
-# Download the default tools.json into ~/.macsetup if not skipping
-if [ "$skip_download" = false ]; then
-  echo "Downloading tools.json..."
+# Check for eligible JSON files in ~/.macsetup directory
+json_files=("$macsetup_dir"/*.json)
+eligible_files=()
+for json_file in "${json_files[@]}"; do
+  if [[ "$json_file" != *.json.d ]]; then
+    eligible_files+=("$json_file")
+  fi
+done
+
+# Download the default tools.json into ~/.macsetup if not skipping and no eligible files are found
+if [ "$skip_download" = false ] && [ ${#eligible_files[@]} -eq 0 ]; then
+  echo "No eligible JSON files found. Downloading tools.json..."
   curl -L -o "$macsetup_dir/tools.json" "https://raw.githubusercontent.com/bhanurp/macsetup/main/config/tools.json"
 else
   echo "Skipping download of tools.json and using existing file in ~/.macsetup"
 fi
 
 # Process JSON files in ~/.macsetup directory
-for json_file in "$macsetup_dir"/*.json; do
-  # Ignore files with .json.d extension
-  if [[ "$json_file" != *.json.d ]]; then
-    install_tools_from_json "$json_file"
-  fi
+for json_file in "${eligible_files[@]}"; do
+  install_tools_from_json "$json_file"
 done
 
 # Call setup_alias function

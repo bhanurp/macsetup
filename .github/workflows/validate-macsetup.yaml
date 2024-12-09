@@ -18,7 +18,7 @@ jobs:
       - name: Run macsetup.sh
         run: |
           chmod +x macsetup.sh
-          ./macsetup.sh --skip
+          ./macsetup.sh --status
 
       - name: Set up Homebrew
         run: |

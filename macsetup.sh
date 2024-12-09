@@ -92,7 +92,7 @@ write_to_shell_profile() {
 }
 
 # Function to install Homebrew
-install_brew() {
+check_and_install_brew() {
     # Check if brew is installed
     if command -v brew >/dev/null 2>&1; then
         echo "Homebrew is already installed."
@@ -153,7 +153,7 @@ check_non_available_tools() {
 }
 
 # Install Homebrew
-install_brew
+check_and_install_brew
 
 # Check and install jq
 check_and_install_jq
@@ -163,6 +163,23 @@ macsetup_dir="$HOME/.macsetup"
 if [ ! -d "$macsetup_dir" ]; then
   echo "Directory $macsetup_dir does not exist. Creating now..."
   mkdir -p "$macsetup_dir"
+fi
+
+# Check for eligible JSON files in ~/.macsetup directory
+json_files=("$macsetup_dir"/*.json)
+eligible_files=()
+for json_file in "${json_files[@]}"; do
+  if [[ "$json_file" != *.json.d ]]; then
+    eligible_files+=("$json_file")
+  fi
+done
+
+# Download the default tools.json into ~/.macsetup if not skipping and no eligible files are found
+if [ "$skip_download" = false ] && [ ${#eligible_files[@]} -eq 0 ]; then
+  echo "No eligible JSON files found. Downloading tools.json..."
+  curl -L -o "$macsetup_dir/tools.json" "https://raw.githubusercontent.com/bhanurp/macsetup/main/config/tools.json"
+else
+  echo "Skipping download of tools.json and using existing file in ~/.macsetup"
 fi
 
 # Parse command-line arguments
@@ -178,6 +195,9 @@ while [[ "$1" != "" ]]; do
       ;;
     --status)
       check_and_install_brew
+      for json_file in "${eligible_files[@]}"; do
+        install_tools_from_json "$json_file"
+      done
       printf "%-20s %s\n" "--------------------" "--------------------"
       printf "%-20s %s\n" "Tool" "Status"
       printf "%-20s %s\n" "--------------------" "--------------------"
@@ -222,28 +242,6 @@ while [[ "$1" != "" ]]; do
       ;;
   esac
   shift
-done
-
-# Check for eligible JSON files in ~/.macsetup directory
-json_files=("$macsetup_dir"/*.json)
-eligible_files=()
-for json_file in "${json_files[@]}"; do
-  if [[ "$json_file" != *.json.d ]]; then
-    eligible_files+=("$json_file")
-  fi
-done
-
-# Download the default tools.json into ~/.macsetup if not skipping and no eligible files are found
-if [ "$skip_download" = false ] && [ ${#eligible_files[@]} -eq 0 ]; then
-  echo "No eligible JSON files found. Downloading tools.json..."
-  curl -L -o "$macsetup_dir/tools.json" "https://raw.githubusercontent.com/bhanurp/macsetup/main/config/tools.json"
-else
-  echo "Skipping download of tools.json and using existing file in ~/.macsetup"
-fi
-
-# Process JSON files in ~/.macsetup directory
-for json_file in "${eligible_files[@]}"; do
-  install_tools_from_json "$json_file"
 done
 
 # Call setup_alias function

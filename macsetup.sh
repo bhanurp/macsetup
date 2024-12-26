@@ -91,7 +91,7 @@ write_to_shell_profile() {
   echo "Content written to $profile_file. Please restart your shell or run 'source $profile_file' to apply the changes."
 }
 
-# Function to install Homebrew
+# Function to check and install Homebrew
 check_and_install_brew() {
     # Check if brew is installed
     if command -v brew >/dev/null 2>&1; then
@@ -128,31 +128,47 @@ check_and_install_jq() {
 # Read tools from JSON file and install them
 install_tools_from_json() {
   json_file=$1
+  if [ ! -f "$json_file" ]; then
+    echo -e "${RED}Error: JSON file $json_file not found.${NC}"
+    exit 1
+  fi
+
   tools=$(jq -c '.[]' "$json_file")
+  if [ $? -ne 0 ]; then
+    echo -e "${RED}Error: Failed to parse JSON file $json_file.${NC}"
+    exit 1
+  fi
 
   for tool in $tools; do
     name=$(echo "$tool" | jq -r '.name')
     install_command=$(echo "$tool" | jq -r '.install_command')
     verify_command=$(echo "$tool" | jq -r '.verify_command')
 
+    if [ -z "$name" ] || [ -z "$install_command" ]; then
+      echo -e "${RED}Error: Missing required fields in JSON file.${NC}"
+      exit 1
+    fi
+
     install_and_log "$name" "$install_command" "$verify_command"
   done
 }
 
-# Check non-available tools
+# Function to check non-available tools
 check_non_available_tools() {
   non_available_tools=()
-  for tool in "${tools[@]}"; do
-    IFS=":" read -r tool_name install_command check_command <<< "$tool"
+  echo "$tools" | while IFS= read -r tool; do
+    IFS=":" read -r name install_command verify_command <<< "$tool"
     eval "$check_command" &> /dev/null
-    if [ $? -ne 0 ] && ! command -v $tool_name &> /dev/null; then
-      printf "%-20s\n" "$tool_name"
+    if [ $? -ne 0 ] && ! command -v $name &> /dev/null; then
+      printf "%-20s\n" "$name"
       non_available_tools+=("$tool")
     fi
   done
+  # non_available_tools=$(printf ", %s" "${json_objects[@]}")
+  echo "$non_available_tools"
 }
 
-# Install Homebrew
+# Check and install Homebrew
 check_and_install_brew
 
 # Check and install jq
@@ -163,23 +179,6 @@ macsetup_dir="$HOME/.macsetup"
 if [ ! -d "$macsetup_dir" ]; then
   echo "Directory $macsetup_dir does not exist. Creating now..."
   mkdir -p "$macsetup_dir"
-fi
-
-# Check for eligible JSON files in ~/.macsetup directory
-json_files=("$macsetup_dir"/*.json)
-eligible_files=()
-for json_file in "${json_files[@]}"; do
-  if [[ "$json_file" != *.json.d ]]; then
-    eligible_files+=("$json_file")
-  fi
-done
-
-# Download the default tools.json into ~/.macsetup if not skipping and no eligible files are found
-if [ "$skip_download" = false ] && [ ${#eligible_files[@]} -eq 0 ]; then
-  echo "No eligible JSON files found. Downloading tools.json..."
-  curl -L -o "$macsetup_dir/tools.json" "https://raw.githubusercontent.com/bhanurp/macsetup/main/config/tools.json"
-else
-  echo "Skipping download of tools.json and using existing file in ~/.macsetup"
 fi
 
 # Parse command-line arguments
@@ -194,16 +193,50 @@ while [[ "$1" != "" ]]; do
       auto_install=true
       ;;
     --status)
-      check_and_install_brew
-      for json_file in "${eligible_files[@]}"; do
-        install_tools_from_json "$json_file"
+      # Ensure tools.json is downloaded before checking status
+      if [ "$skip_download" = false ] && [ ! -f "$macsetup_dir/tools.json" ]; then
+        echo "Downloading tools.json..."
+        curl -L -o "$macsetup_dir/tools.json" "https://raw.githubusercontent.com/bhanurp/macsetup/main/config/tools.json"
+      fi
+
+      # Check for eligible JSON files in ~/.macsetup directory
+      json_files=("$macsetup_dir"/*.json)
+      eligible_files=()
+      for json_file in "${json_files[@]}"; do
+        if [[ "$json_file" != *.json.d ]]; then
+          eligible_files+=("$json_file")
+        fi
       done
+
+      # Download the default tools.json into ~/.macsetup if no eligible files are found
+      if [ ${#eligible_files[@]} -eq 0 ]; then
+        echo "No eligible JSON files found. Downloading tools.json..."
+        curl -L -o "$macsetup_dir/tools.json" "https://raw.githubusercontent.com/bhanurp/macsetup/main/config/tools.json"
+        eligible_files+=("$macsetup_dir/tools.json")
+      else
+        echo "Using existing JSON files in ~/.macsetup"
+      fi
+
+      # Load tools from tools.json
+      tools=$(jq -c '.[]?' "$macsetup_dir/tools.json")
+      if [ $? -ne 0 ]; then
+        echo -e "${RED}Error: Failed to parse JSON file $macsetup_dir/tools.json.${NC}"
+        exit 1
+      fi
+
+      check_and_install_brew
       printf "%-20s %s\n" "--------------------" "--------------------"
       printf "%-20s %s\n" "Tool" "Status"
       printf "%-20s %s\n" "--------------------" "--------------------"
-      for tool in "${tools[@]}"; do
-        IFS=":" read -r tool_name install_command check_command <<< "$tool"
-        check_and_log "$tool_name" "$check_command"
+      echo "$tools" | while IFS= read -r tool; do
+        name=$(echo "$tool" | jq -r '.name')
+        install_command=$(echo "$tool" | jq -r '.install_command')
+        verify_command=$(echo "$tool" | jq -r '.verify_command')
+        if [ -z "$name" ] || [ -z "$install_command" ]; then
+          echo -e "${RED}Error: Missing required fields in JSON file.${NC}"
+          exit 1
+        fi
+        check_and_log "$name" "$verify_command"
       done
       printf "%-20s %s\n" "--------------------" "--------------------"
 
@@ -219,10 +252,11 @@ while [[ "$1" != "" ]]; do
       fi
       response=$(echo "$response" | tr '[:upper:]' '[:lower:]') # Convert to lowercase
       if [[ "$response" =~ ^(yes|y| ) ]] || [[ -z "$response" ]]; then
-        echo "Proceeding with installation..."
         for tool in "${non_available_tools[@]}"; do
-          IFS=":" read -r tool_name install_command check_command <<< "$tool"
-          install_and_log "$tool_name" "$install_command"
+          tool_name=$(echo "$tool" | jq -r '.name')
+          install_command=$(echo "$tool" | jq -r '.install_command')
+          check_command=$(echo "$tool" | jq -r '.verify_command')
+          install_and_log "$tool_name" "$install_command" "$check_command"
         done
 
         # Re-run the check for non-available tools after installation
@@ -242,6 +276,29 @@ while [[ "$1" != "" ]]; do
       ;;
   esac
   shift
+done
+
+# Check for eligible JSON files in ~/.macsetup directory
+json_files=("$macsetup_dir"/*.json)
+eligible_files=()
+for json_file in "${json_files[@]}"; do
+  if [[ "$json_file" != *.json.d ]]; then
+    eligible_files+=("$json_file")
+  fi
+done
+
+# Download the default tools.json into ~/.macsetup if not skipping and no eligible files are found
+if [ "$skip_download" = false ] && [ ${#eligible_files[@]} -eq 0 ]; then
+  echo "No eligible JSON files found. Downloading tools.json..."
+  curl -L -o "$macsetup_dir/tools.json" "https://raw.githubusercontent.com/bhanurp/macsetup/main/config/tools.json"
+  eligible_files+=("$macsetup_dir/tools.json")
+else
+  echo "Skipping download of tools.json and using existing file in ~/.macsetup"
+fi
+
+# Process JSON files in ~/.macsetup directory
+for json_file in "${eligible_files[@]}"; do
+  install_tools_from_json "$json_file"
 done
 
 # Call setup_alias function

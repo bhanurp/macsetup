@@ -156,16 +156,22 @@ install_tools_from_json() {
 # Function to check non-available tools
 check_non_available_tools() {
   non_available_tools=()
-  echo "$tools" | while IFS= read -r tool; do
-    IFS=":" read -r name install_command verify_command <<< "$tool"
-    eval "$check_command" &> /dev/null
+  non_available_tools=()
+  while IFS= read -r tool; do
+    name=$(echo "$tool" | jq -r '.name')
+    install_command=$(echo "$tool" | jq -r '.install_command')
+    verify_command=$(echo "$tool" | jq -r '.verify_command')
+    if [ -z "$name" ] || [ -z "$install_command" ]; then
+      echo -e "${RED}Error: Missing required fields in JSON file.${NC}"
+      exit 1
+    fi
+    eval "$verify_command" &> /dev/null
     if [ $? -ne 0 ] && ! command -v $name &> /dev/null; then
-      printf "%-20s\n" "$name"
+      printf "%-20s\n" "$name $install_command"
       non_available_tools+=("$tool")
     fi
-  done
-  # non_available_tools=$(printf ", %s" "${json_objects[@]}")
-  echo "$non_available_tools"
+  done <<< "$tools"
+  echo "non available tools are: ${non_available_tools[@]}"
 }
 
 # Check and install Homebrew
@@ -252,10 +258,12 @@ while [[ "$1" != "" ]]; do
       fi
       response=$(echo "$response" | tr '[:upper:]' '[:lower:]') # Convert to lowercase
       if [[ "$response" =~ ^(yes|y| ) ]] || [[ -z "$response" ]]; then
+        echo "installing non available toold ${non_available_tools}"
         for tool in "${non_available_tools[@]}"; do
           tool_name=$(echo "$tool" | jq -r '.name')
           install_command=$(echo "$tool" | jq -r '.install_command')
           check_command=$(echo "$tool" | jq -r '.verify_command')
+          echo "installing ${tool_name}"
           install_and_log "$tool_name" "$install_command" "$check_command"
         done
 

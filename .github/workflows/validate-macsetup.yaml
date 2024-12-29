@@ -50,7 +50,15 @@ jobs:
         run: |
           # Read validation commands from config/tools.json and run them
           macsetup_dir="$HOME/.macsetup"
-          tools=$(jq -c '.[]' \"$macsetup_dir/tools.json\")
+          if [ ! -d "$macsetup_dir" ]; then
+            echo "$macsetup_dir does not exist."
+            exit 1
+          fi
+          if [ ! -f "$macsetup_dir/tools.json" ]; then
+            echo "tools.json not found in $macsetup_dir"
+            exit 1
+          fi
+          tools=$(jq -c '.[]' "$macsetup_dir/tools.json")
           for tool in $tools; do
             name=$(echo "$tool" | jq -r '.name')
             verify_command=$(echo "$tool" | jq -r '.verify_command')

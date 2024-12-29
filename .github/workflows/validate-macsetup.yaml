@@ -59,19 +59,25 @@ jobs:
             exit 1
           fi
           echo "folder and file exists"
-          tools=$(cat $macsetup_dir/tools.json | jq -c '.[]')
-          for tool in $tools; do
+          all_installed=true
+          jq -c '.[]' "$macsetup_dir/tools.json" | while IFS= read -r tool; do
             name=$(echo "$tool" | jq -r '.name')
             verify_command=$(echo "$tool" | jq -r '.verify_command')
             if [ -n "$verify_command" ]; then
               echo "Validating $name..."
-              eval "$verify_command"
-              if [ $? -eq 0 ]; then
-                echo -e "${GREEN}$name validation successful.${NC}"
+              if eval "$verify_command"; then
+          echo "$name validation successful."
               else
-                echo -e "${RED}$name validation failed.${NC}"
+          echo "$name validation failed."
+          all_installed=false
               fi
             else
               echo "No validation command provided for $name."
             fi
           done
+          if [ "$all_installed" = false ]; then
+            echo "Some tools are not installed correctly."
+            exit 1
+          else
+            echo "All tools are installed correctly."
+          fi

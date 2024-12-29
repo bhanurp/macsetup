@@ -37,7 +37,7 @@
   {
     "name": "code",
     "install_command": "brew install --cask visual-studio-code",
-    "verify_command": "brew list --cask visual-studio-code"
+    "verify_command": "code --version"
   },
   {
     "name": "slack",
@@ -137,12 +137,12 @@
   {
     "name": "fzf",
     "install_command": "brew install fzf",
-    "verify_command": ""
+    "verify_command": "fzf --version"
   },
   {
     "name": "tree",
     "install_command": "brew install tree",
-    "verify_command": ""
+    "verify_command": "tree"
   },
   {
     "name": "git-lfs",
@@ -152,7 +152,7 @@
   {
     "name": "lsd",
     "install_command": "brew install lsd",
-    "verify_command": ""
+    "verify_command": "lsd"
   },
   {
     "name": "whatsapp",
@@ -162,6 +162,11 @@
   {
     "name": "ffmpeg",
     "install_command": "brew install ffmpeg",
-    "verify_command": ""
+    "verify_command": "ffmpeg -stats"
+  },
+  {
+    "name": "mpv",
+    "install_command": "brew install mpv",
+    "verify_command": "mpv --version"
   }
 ]

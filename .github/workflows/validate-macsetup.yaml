@@ -50,7 +50,7 @@ jobs:
         run: |
           # Read validation commands from config/tools.json and run them
           macsetup_dir="$HOME/.macsetup"
-          tools=$(jq -c '.[]' "$macsetup_dir/tools.json")
+          tools=$(jq -c '.[]' \"$macsetup_dir/tools.json\")
           for tool in $tools; do
             name=$(echo "$tool" | jq -r '.name')
             verify_command=$(echo "$tool" | jq -r '.verify_command')

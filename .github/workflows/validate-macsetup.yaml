@@ -59,6 +59,7 @@ jobs:
             exit 1
           fi
           echo "folder and file exists"
+          cat $macsetup_dir/tools.json
           tools=$(jq -c '.[]' "$macsetup_dir/tools.json" || { echo "Failed to parse tools.json"; exit 1; })
           for tool in $tools; do
             name=$(echo "$tool" | jq -r '.name')

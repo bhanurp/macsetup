@@ -60,7 +60,7 @@ jobs:
           fi
           echo "folder and file exists"
           cat $macsetup_dir/tools.json
-          tools=$(jq -c '.[]' "$macsetup_dir/tools.json" || { echo "Failed to parse tools.json"; exit 1; })
+          tools=$(cat $macsetup_dir/tools.json | jq -c '.[]')
           for tool in $tools; do
             name=$(echo "$tool" | jq -r '.name')
             verify_command=$(echo "$tool" | jq -r '.verify_command')

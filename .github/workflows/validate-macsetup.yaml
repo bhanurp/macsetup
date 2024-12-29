@@ -58,6 +58,7 @@ jobs:
             echo "tools.json not found in $macsetup_dir"
             exit 1
           fi
+          echo "folder and file exists"
           tools=$(jq -c '.[]' "$macsetup_dir/tools.json")
           for tool in $tools; do
             name=$(echo "$tool" | jq -r '.name')

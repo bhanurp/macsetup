@@ -37,7 +37,15 @@ jobs:
           else
             echo "jq is already installed."
           fi
-
+      - name: Check if tools.json exists
+        run: |
+          macsetup_dir="$HOME/.macsetup"
+          if [ ! -f "$macsetup_dir/tools.json" ]; then
+            echo "tools.json not found in $macsetup_dir"
+            exit 1
+          else
+            echo "tools.json found."
+          fi
       - name: Validate installation
         run: |
           # Read validation commands from config/tools.json and run them

@@ -60,7 +60,7 @@ jobs:
           fi
           echo "folder and file exists"
           all_installed=true
-          jq -c '.[]' "$macsetup_dir/tools.json" | while IFS= read -r tool; do
+          while IFS= read -r tool; do
             name=$(echo "$tool" | jq -r '.name')
             verify_command=$(echo "$tool" | jq -r '.verify_command')
             if [ -n "$verify_command" ]; then
@@ -74,7 +74,7 @@ jobs:
             else
               echo "No validation command provided for $name."
             fi
-          done
+          done < <(jq -c '.[]' "$macsetup_dir/tools.json")
           echo "is all installed: $all_installed"
           if [ "$all_installed" = false ]; then
             echo "Some tools are not installed correctly."

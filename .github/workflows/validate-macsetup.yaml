@@ -66,10 +66,11 @@ jobs:
             if [ -n "$verify_command" ]; then
               echo "Validating $name..."
               if eval "$verify_command"; then
-          echo "$name validation successful."
+                echo "$name validation successful."
               else
-          echo "$name validation failed."
-          all_installed=false
+                echo "$name validation failed."
+                all_installed=false
+                break
               fi
             else
               echo "No validation command provided for $name."

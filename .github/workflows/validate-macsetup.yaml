@@ -70,12 +70,12 @@ jobs:
               else
                 echo "$name validation failed."
                 all_installed=false
-                break
               fi
             else
               echo "No validation command provided for $name."
             fi
           done
+          echo "is all installed: $all_installed"
           if [ "$all_installed" = false ]; then
             echo "Some tools are not installed correctly."
             exit 1

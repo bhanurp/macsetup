@@ -139,7 +139,13 @@ install_tools_from_json() {
     exit 1
   fi
 
-  for tool in $tools; do
+  echo "$tools" | while IFS= read -r tool; do
+    skip=$(echo "$tool" | jq -r '.skip // false')
+    if [ "$skip" = true ]; then
+      echo "Skipping $(echo "$tool" | jq -r '.name')"
+      continue
+    fi
+
     name=$(echo "$tool" | jq -r '.name')
     install_command=$(echo "$tool" | jq -r '.install_command')
     verify_command=$(echo "$tool" | jq -r '.verify_command')
@@ -156,22 +162,14 @@ install_tools_from_json() {
 # Function to check non-available tools
 check_non_available_tools() {
   non_available_tools=()
-  non_available_tools=()
-  while IFS= read -r tool; do
-    name=$(echo "$tool" | jq -r '.name')
-    install_command=$(echo "$tool" | jq -r '.install_command')
-    verify_command=$(echo "$tool" | jq -r '.verify_command')
-    if [ -z "$name" ] || [ -z "$install_command" ]; then
-      echo -e "${RED}Error: Missing required fields in JSON file.${NC}"
-      exit 1
-    fi
-    eval "$verify_command" &> /dev/null
-    if [ $? -ne 0 ] && ! command -v $name &> /dev/null; then
-      printf "%-20s\n" "$name $install_command"
+  for tool in "${tools[@]}"; do
+    IFS=":" read -r tool_name install_command check_command <<< "$tool"
+    eval "$check_command" &> /dev/null
+    if [ $? -ne 0 ] && ! command -v $tool_name &> /dev/null; then
+      printf "%-20s\n" "$tool_name"
       non_available_tools+=("$tool")
     fi
-  done <<< "$tools"
-  echo "non available tools are: ${non_available_tools[@]}"
+  done
 }
 
 # Check and install Homebrew
@@ -224,7 +222,7 @@ while [[ "$1" != "" ]]; do
       fi
 
       # Load tools from tools.json
-      tools=$(jq -c '.[]?' "$macsetup_dir/tools.json")
+      tools=$(jq -c '.[]' "$macsetup_dir/tools.json")
       if [ $? -ne 0 ]; then
         echo -e "${RED}Error: Failed to parse JSON file $macsetup_dir/tools.json.${NC}"
         exit 1
@@ -235,14 +233,17 @@ while [[ "$1" != "" ]]; do
       printf "%-20s %s\n" "Tool" "Status"
       printf "%-20s %s\n" "--------------------" "--------------------"
       echo "$tools" | while IFS= read -r tool; do
-        name=$(echo "$tool" | jq -r '.name')
-        install_command=$(echo "$tool" | jq -r '.install_command')
-        verify_command=$(echo "$tool" | jq -r '.verify_command')
-        if [ -z "$name" ] || [ -z "$install_command" ]; then
-          echo -e "${RED}Error: Missing required fields in JSON file.${NC}"
-          exit 1
+        skip=$(echo "$tool" | jq -r '.skip // false')
+        if [ "$skip" = true ]; then
+          echo "Skipping $(echo "$tool" | jq -r '.name')"
+          continue
         fi
-        check_and_log "$name" "$verify_command"
+
+        tool_name=$(echo "$tool" | jq -r '.name')
+        echo "Checking tool name [$tool_name]..."
+        check_command=$(echo "$tool" | jq -r '.verify_command')
+        echo "Checking [${tool_name}]...[${check_command}]"
+        check_and_log "${tool_name}" "${check_command}"
       done
       printf "%-20s %s\n" "--------------------" "--------------------"
 
@@ -258,12 +259,10 @@ while [[ "$1" != "" ]]; do
       fi
       response=$(echo "$response" | tr '[:upper:]' '[:lower:]') # Convert to lowercase
       if [[ "$response" =~ ^(yes|y| ) ]] || [[ -z "$response" ]]; then
-        echo "installing non available toold ${non_available_tools}"
         for tool in "${non_available_tools[@]}"; do
           tool_name=$(echo "$tool" | jq -r '.name')
           install_command=$(echo "$tool" | jq -r '.install_command')
           check_command=$(echo "$tool" | jq -r '.verify_command')
-          echo "installing ${tool_name}"
           install_and_log "$tool_name" "$install_command" "$check_command"
         done
 

@@ -17,7 +17,14 @@
   {
     "name": "iterm2",
     "install_command": "brew install --cask iterm2",
-    "verify_command": "brew list --cask iterm2"
+    "verify_command": "brew list --cask iterm2",
+    "notes": "iTerm2 is a terminal emulator"
+  },
+  {
+    "name": "ghostty",
+    "install_command": "brew install --cask ghostty",
+    "verify_command": "brew list --cask ghostty",
+    "notes": "Ghostty is a terminal emulator"
   },
   {
     "name": "python3",
@@ -37,7 +44,8 @@
   {
     "name": "code",
     "install_command": "brew install --cask visual-studio-code",
-    "verify_command": "code --version"
+    "verify_command": "code --version",
+    "notes": "Visual Studio Code is a code editor"
   },
   {
     "name": "slack",
@@ -47,27 +55,33 @@
   {
     "name": "postman",
     "install_command": "brew install --cask postman",
-    "verify_command": "brew list --cask postman"
+    "verify_command": "brew list --cask postman",
+    "notes": "Postman is an API client"
   },
   {
     "name": "jq",
     "install_command": "brew install jq",
-    "verify_command": "jq --version"
+    "verify_command": "jq --version",
+    "notes": "jq is a terminal JSON processor"
   },
   {
     "name": "docker",
     "install_command": "brew install --cask docker",
-    "verify_command": "brew list --cask docker"
+    "verify_command": "brew list --cask docker",
+    "notes": "Docker Desktop is a containerization platform"
   },
   {
     "name": "rancher",
     "install_command": "brew install --cask rancher",
-    "verify_command": "brew list --cask rancher"
+    "verify_command": "brew list --cask rancher",
+    "skip": true,
+    "notes": "Rancher Desktop is an alternative to Docker Desktop"
   },
   {
     "name": "gh",
     "install_command": "brew install gh",
-    "verify_command": "gh --version"
+    "verify_command": "gh --version",
+    "notes": "gh is the GitHub CLI"
   },
   {
     "name": "http",
@@ -92,7 +106,8 @@
   {
     "name": "jfrog",
     "install_command": "brew install jfrog-cli",
-    "verify_command": "jfrog --version"
+    "verify_command": "jfrog --version",
+    "notes": "jfrog is a CLI for JFrog products"
   },
   {
     "name": "kubectl",
@@ -102,7 +117,8 @@
   {
     "name": "arc",
     "install_command": "brew install --cask arc",
-    "verify_command": "brew list --cask arc"
+    "verify_command": "brew list --cask arc",
+    "notes": "Arc is a fancy browser"
   },
   {
     "name": "brave",
@@ -112,7 +128,8 @@
   {
     "name": "rectangle",
     "install_command": "brew install rectangle",
-    "verify_command": "brew list rectangle"
+    "verify_command": "brew list rectangle",
+    "notes": "Rectangle is a window manager"
   },
   {
     "name": "speedtest",
@@ -122,7 +139,8 @@
   {
     "name": "bat",
     "install_command": "brew install bat",
-    "verify_command": "bat --version"
+    "verify_command": "bat --version",
+    "notes": "bat is a cat clone on steroids"
   },
   {
     "name": "clipper",
@@ -142,17 +160,20 @@
   {
     "name": "tree",
     "install_command": "brew install tree",
-    "verify_command": "tree"
+    "verify_command": "tree",
+    "notes": "tree is a directory listing program"
   },
   {
     "name": "git-lfs",
     "install_command": "brew install git-lfs",
-    "verify_command": ""
+    "verify_command": "",
+    "notes": "git-lfs is a Git extension for large files"
   },
   {
     "name": "lsd",
     "install_command": "brew install lsd",
-    "verify_command": "lsd"
+    "verify_command": "lsd",
+    "notes": "lsd is a modern ls command"
   },
   {
     "name": "whatsapp",
@@ -162,11 +183,13 @@
   {
     "name": "ffmpeg",
     "install_command": "brew install ffmpeg",
-    "verify_command": "ffmpeg -stats"
+    "verify_command": "ffmpeg -version",
+    "notes": "ffmpeg is a multimedia framework"
   },
   {
     "name": "mpv",
     "install_command": "brew install mpv",
-    "verify_command": "mpv --version"
+    "verify_command": "mpv --version",
+    "notes": "mpv is a media player"
   }
 ]

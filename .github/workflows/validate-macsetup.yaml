@@ -61,6 +61,12 @@ jobs:
           echo "folder and file exists"
           all_installed=true
           while IFS= read -r tool; do
+            skip=$(echo "$tool" | jq -r '.skip // false')
+            if [ "$skip" = true ]; then
+              echo "Skipping $(echo "$tool" | jq -r '.name')"
+              continue
+            fi
+      
             name=$(echo "$tool" | jq -r '.name')
             verify_command=$(echo "$tool" | jq -r '.verify_command')
             if [ -n "$verify_command" ]; then

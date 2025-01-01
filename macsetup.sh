@@ -51,6 +51,12 @@ install_and_log() {
   fi
 }
 
+debug_echo() {
+  if [ "$DEBUG" = true ]; then
+    echo "$1"
+  fi
+}
+
 # Function to setup alias
 setup_alias() {
   read -p "Do you want to set up the following aliases? (y/n): 
@@ -188,6 +194,7 @@ fi
 # Parse command-line arguments
 skip_download=false
 auto_install=false
+DEBUG=false
 while [[ "$1" != "" ]]; do
   case $1 in
     --skip)
@@ -195,6 +202,9 @@ while [[ "$1" != "" ]]; do
       ;;
     --install)
       auto_install=true
+      ;;
+    --debug)
+      DEBUG=true
       ;;
     --status)
       # Ensure tools.json is downloaded before checking status
@@ -240,9 +250,9 @@ while [[ "$1" != "" ]]; do
         fi
 
         tool_name=$(echo "$tool" | jq -r '.name')
-        echo "Checking tool name [$tool_name]..."
+        debug_echo "Checking tool name [$tool_name]..."
         check_command=$(echo "$tool" | jq -r '.verify_command')
-        echo "Checking [${tool_name}]...[${check_command}]"
+        debug_echo "Checking [${tool_name}]...[${check_command}]"
         check_and_log "${tool_name}" "${check_command}"
       done
       printf "%-20s %s\n" "--------------------" "--------------------"

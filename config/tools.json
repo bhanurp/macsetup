@@ -23,7 +23,7 @@
   {
     "name": "ghostty",
     "install_command": "brew install --cask ghostty",
-    "verify_command": "brew list --cask ghostty",
+    "verify_command": "ghostty --version",
     "notes": "Ghostty is a terminal emulator"
   },
   {

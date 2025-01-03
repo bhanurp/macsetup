@@ -270,16 +270,10 @@ while [[ "$1" != "" ]]; do
       response=$(echo "$response" | tr '[:upper:]' '[:lower:]') # Convert to lowercase
       if [[ "$response" =~ ^(yes|y| ) ]] || [[ -z "$response" ]]; then
         for tool in "${non_available_tools[@]}"; do
-          skip=$(echo "$tool" | jq -r '.skip // false')
-          if [ "$skip" = false ]; then
-            tool_name=$(echo "$tool" | jq -r '.name')
-            install_command=$(echo "$tool" | jq -r '.install_command')
-            check_command=$(echo "$tool" | jq -r '.verify_command')
-            install_and_log "$tool_name" "$install_command" "$check_command"
-          else
-            echo "Skipping $tool_name as skip is set to true."
-          fi
-        done
+          tool_name=$(echo "$tool" | jq -r '.name')
+          install_command=$(echo "$tool" | jq -r '.install_command')
+          check_command=$(echo "$tool" | jq -r '.verify_command')
+          install_and_log "$tool_name" "$install_command" "$check_command"
         done
 
         # Re-run the check for non-available tools after installation

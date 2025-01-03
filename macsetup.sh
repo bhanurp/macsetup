@@ -280,8 +280,6 @@ while [[ "$1" != "" ]]; do
             echo "Skipping $tool_name as skip is set to true."
           fi
         done
-        done
-
         # Re-run the check for non-available tools after installation
         echo -e "\nRe-checking non-available binaries on Mac:"
         check_non_available_tools

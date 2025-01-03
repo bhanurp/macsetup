@@ -2,17 +2,20 @@
   {
     "name": "zsh",
     "install_command": "brew install zsh",
-    "verify_command": "zsh --version"
+    "verify_command": "zsh --version",
+    "notes": "zsh is a shell similar to bash"
   },
   {
     "name": "omz",
     "install_command": "sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"",
-    "verify_command": "omz version"
+    "verify_command": "omz version",
+    "notes": "oh my zsh is a zsh framework"
   },
   {
     "name": "git",
     "install_command": "brew install git",
-    "verify_command": "git --version"
+    "verify_command": "git --version",
+    "notes": "git is a version control system"
   },
   {
     "name": "iterm2",
@@ -29,17 +32,20 @@
   {
     "name": "python3",
     "install_command": "brew install python",
-    "verify_command": "python3 --version"
+    "verify_command": "python3 --version",
+    "notes": "Python is a programming language"
   },
   {
     "name": "go",
     "install_command": "brew install go",
-    "verify_command": "go version"
+    "verify_command": "go version",
+    "notes": "Go is a programming language"
   },
   {
     "name": "java",
     "install_command": "brew install openjdk@17",
-    "verify_command": "java -version"
+    "verify_command": "java -version",
+    "notes": "Java is a programming language"
   },
   {
     "name": "code",
@@ -50,7 +56,8 @@
   {
     "name": "slack",
     "install_command": "brew install --cask slack",
-    "verify_command": "brew list --cask slack"
+    "verify_command": "brew list --cask slack",
+    "notes": "Slack is a messaging app"
   },
   {
     "name": "postman",
@@ -86,22 +93,26 @@
   {
     "name": "http",
     "install_command": "brew install httpie",
-    "verify_command": "http --version"
+    "verify_command": "http --version",
+    "notes": "httpie is a HTTP client"
   },
   {
     "name": "k9s",
     "install_command": "brew install k9s",
-    "verify_command": "k9s version"
+    "verify_command": "k9s version",
+    "notes": "k9s is a Kubernetes TUI application"
   },
   {
     "name": "aws",
     "install_command": "brew install awscli",
-    "verify_command": "aws --version"
+    "verify_command": "aws --version",
+    "notes": "awscli is the AWS CLI"
   },
   {
     "name": "sdm",
     "install_command": "brew install --cask sdm",
-    "verify_command": "brew list --cask sdm"
+    "verify_command": "brew list --cask sdm",
+    "notes": "StrongDM is an access management tool"
   },
   {
     "name": "jfrog",
@@ -112,7 +123,8 @@
   {
     "name": "kubectl",
     "install_command": "brew install kubectl",
-    "verify_command": "kubectl version --client"
+    "verify_command": "kubectl version --client",
+    "notes": "kubectl is the Kubernetes CLI"
   },
   {
     "name": "arc",
@@ -123,7 +135,8 @@
   {
     "name": "brave",
     "install_command": "brew install --cask brave-browser",
-    "verify_command": "brew list --cask brave-browser"
+    "verify_command": "brew list --cask brave-browser",
+    "notes": "Brave is a privacy-focused browser"
   },
   {
     "name": "rectangle",
@@ -134,7 +147,8 @@
   {
     "name": "speedtest",
     "install_command": "brew install speedtest-cli",
-    "verify_command": "speedtest --version"
+    "verify_command": "speedtest --version",
+    "notes": "speedtest-cli is a network speed test tool"
   },
   {
     "name": "bat",
@@ -145,17 +159,20 @@
   {
     "name": "clipper",
     "install_command": "brew install clipper",
-    "verify_command": "clipper --version"
+    "verify_command": "clipper --version",
+    "notes": "clipper is a clipboard manager"
   },
   {
     "name": "spotify",
     "install_command": "brew install spotify",
-    "verify_command": "brew list spotify"
+    "verify_command": "brew list spotify",
+    "notes": "Spotify is a music streaming service"
   },
   {
     "name": "fzf",
     "install_command": "brew install fzf",
-    "verify_command": "fzf --version"
+    "verify_command": "fzf --version",
+    "notes": "fzf is a fuzzy finder generally used with other terminal applications"
   },
   {
     "name": "tree",
@@ -178,18 +195,19 @@
   {
     "name": "whatsapp",
     "install_command": "brew install whatsapp",
-    "verify_command": ""
+    "verify_command": "",
+    "notes": "WhatsApp is a messaging app"
   },
   {
     "name": "ffmpeg",
     "install_command": "brew install ffmpeg",
     "verify_command": "ffmpeg -version",
-    "notes": "ffmpeg is a multimedia framework"
+    "notes": "ffmpeg is a multimedia framework and tool suite to edit video and audio"
   },
   {
     "name": "mpv",
     "install_command": "brew install mpv",
     "verify_command": "mpv --version",
-    "notes": "mpv is a media player"
+    "notes": "mpv is a terminal media player"
   }
 ]

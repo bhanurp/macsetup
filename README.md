@@ -1,8 +1,9 @@
 
 # Mac Setup Script
 
-[![x64 Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&job=validate-macsetup&matrix.arch=x64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)
-[![ARM Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&job=validate-macsetup&matrix.arch=arm64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)
+X64 Build Status [![x64 Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&job=validate-macsetup&matrix.arch=x64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)
+
+ARM Build Status [![ARM Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&job=validate-macsetup&matrix.arch=arm64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)
 
 
 This script automates the installation, configuration, and verification of various tools and applications on a macOS system using Homebrew. It leverages a JSON configuration file to define the tools to be installed, their installation commands, verification commands, and additional metadata. This makes it easy to distribute and manage tool installations across multiple systems.
@@ -220,5 +221,6 @@ tools.json
 
 The repository includes a GitHub Actions workflow to validate the installation of tools. The workflow checks if `tools.json` exists, installs the necessary tools, and validates their installation.
 
-[![x64 Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&job=validate-macsetup&matrix.arch=x64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)
-[![ARM Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&job=validate-macsetup&matrix.arch=arm64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)
+X64 Build Status [![x64 Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&job=validate-macsetup&matrix.arch=x64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)
+
+ARM Build Status [![ARM Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&job=validate-macsetup&matrix.arch=arm64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)

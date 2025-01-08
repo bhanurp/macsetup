@@ -7,7 +7,7 @@
   },
   {
     "name": "omz",
-    "install_command": "sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"",
+    "install_command": "sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\" && export ZSH=$HOME/.oh-my-zsh",
     "verify_command": "omz version",
     "notes": "oh my zsh is a zsh framework"
   },
@@ -25,7 +25,7 @@
   },
   {
     "name": "ghostty",
-    "install_command": "brew install --cask ghostty",
+    "install_command": "brew install ghostty",
     "verify_command": "ghostty --version",
     "notes": "Ghostty is a terminal emulator"
   },

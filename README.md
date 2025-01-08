@@ -1,7 +1,7 @@
 
 # Mac Setup Script
 
-[![Build Status](https://github.com/yourusername/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg)](https://github.com/yourusername/macsetup/actions)
+[![Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg)](https://github.com/bhanurp/macsetup/actions)
 
 This script automates the installation, configuration, and verification of various tools and applications on a macOS system using Homebrew. It leverages a JSON configuration file to define the tools to be installed, their installation commands, verification commands, and additional metadata. This makes it easy to distribute and manage tool installations across multiple systems.
 

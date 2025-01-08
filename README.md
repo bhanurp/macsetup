@@ -1,7 +1,9 @@
 
 # Mac Setup Script
 
-[![Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg)](https://github.com/bhanurp/macsetup/actions)
+[![x64 Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&matrix.arch=x64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)
+[![ARM Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&matrix.arch=arm64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)
+
 
 This script automates the installation, configuration, and verification of various tools and applications on a macOS system using Homebrew. It leverages a JSON configuration file to define the tools to be installed, their installation commands, verification commands, and additional metadata. This makes it easy to distribute and manage tool installations across multiple systems.
 
@@ -176,9 +178,15 @@ tools.json
 
 :
 
-| Tool Name | Installation Command | Verification Command | Notes |
+ Tool Name | Installation Command | Verification Command | Notes |
 |-----------|----------------------|----------------------|-------|
+| zsh       | `brew install zsh` | `zsh --version` | zsh is a shell similar to bash |
+| omz       | `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && export ZSH=$HOME/.oh-my-zsh` |  | oh my zsh is a zsh framework |
+| git       | `brew install git` | `git --version` | git is a version control system |
+| iterm2    | `brew install --cask iterm2` | `brew list --cask iterm2` | iTerm2 is a terminal emulator |
 | ghostty   | `brew install ghostty` | `ghostty --version` | Ghostty is a terminal emulator |
+| python3   | `brew install python` | `python3 --version` | Python is a programming language |
+| go        | `brew install go` | `go version` | Go is a programming language |
 | java      | `brew install openjdk@17` | `java -version` | Java is a programming language |
 | code      | `brew install --cask visual-studio-code` | `code --version` | Visual Studio Code is a code editor |
 | slack     | `brew install --cask slack` | `brew list --cask slack` | Slack is a messaging app |
@@ -188,9 +196,29 @@ tools.json
 | rancher   | `brew install --cask rancher` | `brew list --cask rancher` | Rancher Desktop is an alternative to Docker Desktop |
 | gh        | `brew install gh` | `gh --version` | gh is the GitHub CLI |
 | http      | `brew install httpie` | `http --version` | httpie is a HTTP client |
+| k9s       | `brew install k9s` | `k9s version` | k9s is a Kubernetes TUI application |
+| aws       | `brew install awscli` | `aws --version` | awscli is the AWS CLI |
+| sdm       | `brew install --cask sdm` | `brew list --cask sdm` | StrongDM is an access management tool |
+| jfrog     | `brew install jfrog-cli` | `jfrog --version` | jfrog is a CLI for JFrog products |
+| kubectl   | `brew install kubectl` | `kubectl version --client` | kubectl is the Kubernetes CLI |
+| arc       | `brew install --cask arc` | `brew list --cask arc` | Arc is a fancy browser |
+| brave     | `brew install --cask brave-browser` | `brew list --cask brave-browser` | Brave is a privacy-focused browser |
+| rectangle | `brew install rectangle` | `brew list rectangle` | Rectangle is a window manager |
+| speedtest | `brew install speedtest-cli` | `speedtest --version` | speedtest-cli is a network speed test tool |
+| bat       | `brew install bat` | `bat --version` | bat is a cat clone on steroids |
+| clipper   | `brew install clipper` | `clipper --version` | clipper is a clipboard manager |
+| spotify   | `brew install spotify` | `brew list spotify` | Spotify is a music streaming service |
+| fzf       | `brew install fzf` | `fzf --version` | fzf is a fuzzy finder generally used with other terminal applications |
+| tree      | `brew install tree` | `tree` | tree is a directory listing program |
+| git-lfs   | `brew install git-lfs` |  | git-lfs is a Git extension for large files |
+| lsd       | `brew install lsd` | `lsd` | lsd is a modern ls command |
+| whatsapp  | `brew install whatsapp` |  | WhatsApp is a messaging app |
+| ffmpeg    | `brew install ffmpeg` | `ffmpeg -version` | ffmpeg is a multimedia framework and tool suite to edit video and audio |
+| mpv       | `brew install mpv` | `mpv --version` | mpv is a terminal media player |
 
 ## GitHub Actions
 
 The repository includes a GitHub Actions workflow to validate the installation of tools. The workflow checks if `tools.json` exists, installs the necessary tools, and validates their installation.
 
-[![Build Status](https://github.com/yourusername/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg)](https://github.com/yourusername/macsetup/actions)
+[![x64 Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&matrix.arch=x64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)
+[![ARM Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&matrix.arch=arm64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)

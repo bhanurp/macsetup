@@ -1,0 +1,104 @@
+[
+    {
+        "name": "k9s",
+        "install_command": "brew install k9s",
+        "verify_command": "k9s version",
+        "notes": "k9s is a terminal UI for managing Kubernetes clusters."
+    },
+    {
+        "name": "ktop",
+        "install_command": "brew install ktop",
+        "verify_command": "ktop --version",
+        "notes": "ktop is a monitoring tool for Kubernetes nodes and pods."
+    },
+    {
+        "name": "kubectx",
+        "install_command": "brew install kubectx",
+        "verify_command": "kubectx --help",
+        "notes": "kubectx is a utility for switching between Kubernetes contexts."
+    },
+    {
+        "name": "kdash",
+        "install_command": "brew install kdash",
+        "verify_command": "kdash --version",
+        "notes": "kdash is a modern terminal dashboard for Kubernetes."
+    },
+    {
+        "name": "kubescape",
+        "install_command": "brew install kubescape",
+        "verify_command": "kubescape version",
+        "notes": "kubescape is a Kubernetes security scanner."
+    },
+    {
+        "name": "ctop",
+        "install_command": "brew install ctop",
+        "verify_command": "ctop --version",
+        "notes": "ctop is a top-like interface for container metrics."
+    },
+    {
+        "name": "lazydocker",
+        "install_command": "brew install lazydocker",
+        "verify_command": "lazydocker --version",
+        "notes": "lazydocker is a simple terminal UI for Docker."
+    },
+    {
+        "name": "dive",
+        "install_command": "brew install dive",
+        "verify_command": "dive --version",
+        "notes": "dive is a tool for exploring Docker image layers."
+    },
+    {
+        "name": "jq",
+        "install_command": "brew install jq",
+        "verify_command": "jq --version",
+        "notes": "jq is a lightweight command-line JSON processor."
+    },
+    {
+        "name": "lazygit",
+        "install_command": "brew install lazygit",
+        "verify_command": "lazygit --version",
+        "notes": "lazygit is a simple terminal UI for git commands."
+    },
+    {
+        "name": "gitui",
+        "install_command": "brew install gitui",
+        "verify_command": "gitui --version",
+        "notes": "gitui is a blazing fast terminal UI for git."
+    },
+    {
+        "name": "atac",
+        "install_command": "brew install atac",
+        "verify_command": "atac --version",
+        "notes": "atac is a tool for testing APIs with customizable templates."
+    },
+    {
+        "name": "vegeta",
+        "install_command": "brew install vegeta",
+        "verify_command": "vegeta -version",
+        "notes": "vegeta is a load testing tool for HTTP services."
+    },
+    {
+        "name": "k6",
+        "install_command": "brew install k6",
+        "verify_command": "k6 version",
+        "notes": "k6 is a performance testing tool for modern web apps."
+    },
+    {
+        "name": "httpie",
+        "install_command": "brew install httpie",
+        "verify_command": "http --version",
+        "notes": "httpie is a user-friendly HTTP client for the terminal."
+    },
+    {
+        "name": "asciinema",
+        "install_command": "brew install asciinema",
+        "verify_command": "asciinema --version",
+        "notes": "asciinema records and shares terminal sessions."
+    },
+    {
+        "name": "gping",
+        "install_command": "brew install gping",
+        "verify_command": "gping --version",
+        "notes": "gping is a ping tool with a graphical display."
+    }
+]

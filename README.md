@@ -8,6 +8,13 @@ ARM Build Status [![ARM Build Status](https://github.com/bhanurp/macsetup/action
 
 This script automates the installation, configuration, and verification of various tools and applications on a macOS system using Homebrew. It leverages a JSON configuration file to define the tools to be installed, their installation commands, verification commands, and additional metadata. This makes it easy to distribute and manage tool installations across multiple systems.
 
+## How It Works
+
+1. **Download Configuration**: The script first tries to download the `config/tools.json` file into the `~/.macsetup` directory if it is not already present.
+2. **Read Configuration Files**: If the `tools.json` file is present, the script uses all `*.json` files in the `~/.macsetup` directory to read the configuration and install the software.
+3. **Skip Certain Files**: Any file that ends with `*.json.d` will be skipped and not used for installation.
+4. **Install and Verify**: For each tool defined in the JSON files, the script runs the installation command and then verifies the installation using the verification command.
+
 ## Features
 
 - Installs a list of predefined tools defined in tools.json.
@@ -32,6 +39,7 @@ This script automates the installation, configuration, and verification of vario
   }
   ```
 - **Default Tools**:The default tools.json file is located in config/tools.json.
+- **Sample Configurations**: Sample JSON configuration files are available in the samples directory and can be added to the ~/.macsetup directory for custom tool installations.
 
 ## JSON Object Properties
 

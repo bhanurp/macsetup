@@ -94,3 +94,12 @@ jobs:
           else
             echo "All tools are installed correctly."
           fi
+      - name: Test help flag
+        run: |
+          ./macsetup.sh --help
+          if [ $? -ne 0 ]; then
+            echo "--help command failed."
+            exit 1
+          else
+            echo "--help command succeeded."
+          fi

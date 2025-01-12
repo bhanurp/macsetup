@@ -178,6 +178,16 @@ check_non_available_tools() {
   done
 }
 
+display_help() {
+  echo "Usage: $0 [--skip] [--install] [--debug] [--status] [--help]"
+  echo "  --skip    Skip downloading tools.json from URL and use existing file in ~/.macsetup"
+  echo "  --install Automatically proceed with the installation of all non-available binaries"
+  echo "  --debug   Enable debug mode to print additional information"
+  echo "  --status  Check the status of tools and install non-available binaries"
+  echo "  --help    Display this help message"
+  exit 0
+}
+
 # Check and install Homebrew
 check_and_install_brew
 
@@ -197,6 +207,9 @@ auto_install=false
 DEBUG=false
 while [[ "$1" != "" ]]; do
   case $1 in
+    --help)
+      display_help
+      ;;
     --skip)
       skip_download=true
       ;;

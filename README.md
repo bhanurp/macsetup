@@ -1,4 +1,4 @@
-![alt text](images/macsetup.png)
+![alt text](images/mac_setup.png)
 
 # Mac Setup Script
 

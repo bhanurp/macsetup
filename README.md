@@ -1,14 +1,13 @@
+![alt text](images/macsetup.png)
 
 # Mac Setup Script
 
-X64 Build Status [![x64 Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&job=validate-macsetup&matrix.arch=x64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)
+X64 [![x64 Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&job=validate-macsetup&matrix.arch=x64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)
 
-ARM Build Status [![ARM Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&job=validate-macsetup&matrix.arch=arm64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)
+ARM [![ARM Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&job=validate-macsetup&matrix.arch=arm64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)
 
-
+------------
 Macsetup automates the installation, configuration, and verification of various tools and applications on a macOS system using Homebrew. It leverages a JSON configuration file to define the tools to be installed, their installation commands, verification commands, and additional metadata. This makes it easy to distribute and manage tool installations across multiple systems.
-
-![alt text](images/macsetup.png)
 
 ## How It Works
 

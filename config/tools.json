@@ -78,13 +78,6 @@
     "notes": "Docker Desktop is a containerization platform"
   },
   {
-    "name": "rancher",
-    "install_command": "brew install --cask rancher",
-    "verify_command": "brew list --cask rancher",
-    "skip": true,
-    "notes": "Rancher Desktop is an alternative to Docker Desktop"
-  },
-  {
     "name": "gh",
     "install_command": "brew install gh",
     "verify_command": "gh --version",

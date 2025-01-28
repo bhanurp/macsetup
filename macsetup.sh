@@ -3,7 +3,11 @@
 # Define color codes
 GREEN='\033[0;32m'
 RED='\033[0;31m'
+YELLOW='\033[0;33m'
 NC='\033[0m'
+TICK='✅'
+CROSS='❌'
+HYPHEN='➖'
 
 # check and log the status
 check_and_log() {
@@ -39,12 +43,12 @@ install_and_log() {
       echo "Verifying $tool_name installation..."
       eval "$verify_command"
       if [ $? -eq 0 ]; then
-        echo -e "${GREEN}$tool_name verification successful.${NC}"
+        echo -e "${GREEN}$tool_name verification successful. $TICK${NC}"
       else
-        echo -e "${RED}$tool_name verification failed.${NC}"
+        echo -e "${RED}$tool_name verification failed. $CROSS${NC}"
       fi
     else
-      echo "Verification skipped for $tool_name since verification command is not provided."
+      echo -e "${YELLOW}Verification skipped for $tool_name since verification command is not provided. $HYPHEN${NC}"
     fi
   else
     echo -e "${RED}$tool_name installation failed.${NC}"

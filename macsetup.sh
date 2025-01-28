@@ -5,9 +5,9 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 YELLOW='\033[0;33m'
 NC='\033[0m'
-TICK='✅'
-CROSS='❌'
-HYPHEN='➖'
+TICK='[✅]'
+CROSS='[❌]'
+HYPHEN='[➖]'
 
 # check and log the status
 check_and_log() {

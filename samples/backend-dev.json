@@ -1,0 +1,164 @@
+[
+  {
+    "name": "Node.js",
+    "install_command": "brew install node",
+    "verify_command": "node --version",
+    "notes": "Node.js is a JavaScript runtime for server-side programming."
+  },
+  {
+    "name": "nvm",
+    "install_command": "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash",
+    "verify_command": "nvm --version",
+    "notes": "nvm is a version manager for Node.js, allowing you to install and switch between multiple versions of Node.js."
+  },
+  {
+    "name": "PostgreSQL",
+    "install_command": "brew install postgresql",
+    "verify_command": "psql --version",
+    "notes": "PostgreSQL is a powerful, open-source relational database system."
+  },
+  {
+    "name": "MySQL",
+    "install_command": "brew install mysql",
+    "verify_command": "mysql --version",
+    "notes": "MySQL is an open-source relational database management system."
+  },
+  {
+    "name": "MongoDB",
+    "install_command": "brew install mongodb-community",
+    "verify_command": "mongod --version",
+    "notes": "MongoDB is a NoSQL database for modern application development."
+  },
+  {
+    "name": "Redis",
+    "install_command": "brew install redis",
+    "verify_command": "redis-server --version",
+    "notes": "Redis is an in-memory key-value store for caching and message brokering."
+  },
+  {
+    "name": "Docker",
+    "install_command": "brew install --cask docker",
+    "verify_command": "docker --version",
+    "notes": "Docker is a platform for containerizing applications."
+  },
+  {
+    "name": "Kubernetes",
+    "install_command": "brew install kubectl",
+    "verify_command": "kubectl version --client",
+    "notes": "Kubernetes is a container orchestration platform."
+  },
+  {
+    "name": "Git",
+    "install_command": "brew install git",
+    "verify_command": "git --version",
+    "notes": "Git is a distributed version control system."
+  },
+  {
+    "name": "Golang",
+    "install_command": "brew install go",
+    "verify_command": "go version",
+    "notes": "Golang (Go) is a statically typed programming language designed for backend development."
+  },
+  {
+    "name": "Visual Studio Code (VS Code)",
+    "install_command": "brew install --cask visual-studio-code",
+    "verify_command": "brew list --cask | grep visual-studio-code",
+    "notes": "VS Code is a lightweight, highly customizable code editor."
+  },
+  {
+    "name": "Vim",
+    "install_command": "brew install vim",
+    "verify_command": "vim --version",
+    "notes": "Vim is a highly configurable text editor for efficient coding."
+  },
+  {
+    "name": "k9s",
+    "install_command": "brew install k9s",
+    "verify_command": "k9s version",
+    "notes": "k9s is a terminal UI for managing Kubernetes clusters."
+  },
+  {
+    "name": "GitHub CLI (gh)",
+    "install_command": "brew install gh",
+    "verify_command": "gh --version",
+    "notes": "GitHub CLI provides a command-line interface for interacting with GitHub."
+  },
+  {
+    "name": "cURL",
+    "install_command": "brew install curl",
+    "verify_command": "curl --version",
+    "notes": "cURL is a command-line tool for making HTTP requests."
+  },
+  {
+    "name": "Postman",
+    "install_command": "brew install --cask postman",
+    "verify_command": "brew list --cask | grep postman",
+    "notes": "Postman is an API testing tool."
+  },
+  {
+    "name": "nginx",
+    "install_command": "brew install nginx",
+    "verify_command": "nginx -v",
+    "notes": "nginx is a high-performance HTTP server and reverse proxy."
+  },
+  {
+    "name": "Elasticsearch",
+    "install_command": "brew install elasticsearch",
+    "verify_command": "elasticsearch --version",
+    "notes": "Elasticsearch is a distributed search and analytics engine."
+  },
+  {
+    "name": "K6",
+    "install_command": "brew install k6",
+    "verify_command": "k6 version",
+    "notes": "K6 is a performance testing tool for modern web apps."
+  },
+  {
+    "name": "Vegeta",
+    "install_command": "brew install vegeta",
+    "verify_command": "vegeta -version",
+    "notes": "Vegeta is a load testing tool for HTTP services."
+  },
+  {
+    "name": "OpenSSL",
+    "install_command": "brew install openssl",
+    "verify_command": "openssl version",
+    "notes": "OpenSSL is a toolkit for SSL and TLS protocols."
+  },
+  {
+    "name": "jq",
+    "install_command": "brew install jq",
+    "verify_command": "jq --version",
+    "notes": "jq is a lightweight command-line JSON processor."
+  },
+  {
+    "name": "HTTPie",
+    "install_command": "brew install httpie",
+    "verify_command": "http --version",
+    "notes": "HTTPie is a user-friendly HTTP client for the terminal."
+  },
+  {
+    "name": "asciinema",
+    "install_command": "brew install asciinema",
+    "verify_command": "asciinema --version",
+    "notes": "asciinema records and shares terminal sessions."
+  },
+  {
+    "name": "Swagger CLI",
+    "install_command": "npm install -g swagger-cli",
+    "verify_command": "swagger-cli --version",
+    "notes": "Swagger CLI is a tool for validating and bundling OpenAPI specifications."
+  },
+  {
+    "name": "Terraform",
+    "install_command": "brew install terraform",
+    "verify_command": "terraform --version",
+    "notes": "Terraform is an Infrastructure as Code (IaC) tool."
+  },
+  {
+    "name": "yq",
+    "install_command": "brew install yq",
+    "verify_command": "yq --version",
+    "notes": "yq is a lightweight and portable command-line YAML processor, similar to jq for JSON."
+  }
+]

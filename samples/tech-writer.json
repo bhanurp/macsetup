@@ -1,0 +1,62 @@
+[
+    {
+      "name": "Draw.io (Desktop)",
+      "install_command": "brew install --cask drawio",
+      "verify_command": "brew list --cask | grep drawio",
+      "notes": "Draw.io is a diagramming tool for creating flowcharts, diagrams, and other visuals."
+    },
+    {
+      "name": "Lucidchart Desktop",
+      "install_command": "brew install --cask lucidchart",
+      "verify_command": "brew list --cask | grep lucidchart",
+      "notes": "Lucidchart Desktop is a powerful diagramming tool for creating flowcharts, org charts, and more."
+    },
+    {
+      "name": "Pencil Project",
+      "install_command": "brew install --cask pencil",
+      "verify_command": "brew list --cask | grep pencil",
+      "notes": "Pencil Project is an open-source tool for creating mockups and diagrams."
+    },
+    {
+      "name": "Microsoft Visio",
+      "install_command": "brew install --cask visio",
+      "verify_command": "brew list --cask | grep visio",
+      "notes": "Microsoft Visio is a well-known tool for creating professional diagrams and flowcharts."
+    },
+    {
+      "name": "Inkscape",
+      "install_command": "brew install --cask inkscape",
+      "verify_command": "inkscape --version",
+      "notes": "Inkscape is an open-source vector graphics editor, useful for creating diagrams and illustrations."
+    },
+    {
+      "name": "yEd Graph Editor",
+      "install_command": "brew install --cask yed",
+      "verify_command": "brew list --cask | grep yed",
+      "notes": "yEd Graph Editor is a powerful desktop application for creating diagrams quickly and efficiently."
+    },
+    {
+      "name": "OmniGraffle",
+      "install_command": "brew install --cask omnigraffle",
+      "verify_command": "brew list --cask | grep omnigraffle",
+      "notes": "OmniGraffle is a professional diagramming tool for macOS."
+    },
+    {
+      "name": "Graphviz",
+      "install_command": "brew install graphviz",
+      "verify_command": "dot -version",
+      "notes": "Graphviz is an open-source tool for drawing graphs specified in DOT language scripts."
+    },
+    {
+      "name": "PlantUML",
+      "install_command": "brew install plantuml",
+      "verify_command": "plantuml -version",
+      "notes": "PlantUML is a tool to generate UML diagrams from plain text descriptions."
+    },
+    {
+      "name": "Mermaid CLI",
+      "install_command": "npm install -g @mermaid-js/mermaid-cli",
+      "verify_command": "mmdc --version",
+      "notes": "Mermaid CLI is used to create diagrams and visualizations from text using Mermaid syntax."
+    }
+]

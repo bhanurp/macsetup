@@ -1,0 +1,152 @@
+[
+    {
+      "name": "Docker",
+      "install_command": "brew install --cask docker",
+      "verify_command": "docker --version",
+      "notes": "Docker is a platform for containerizing applications."
+    },
+    {
+      "name": "Kubernetes (kubectl)",
+      "install_command": "brew install kubectl",
+      "verify_command": "kubectl version --client",
+      "notes": "kubectl is the command-line tool for interacting with Kubernetes clusters."
+    },
+    {
+      "name": "Minikube",
+      "install_command": "brew install minikube",
+      "verify_command": "minikube version",
+      "notes": "Minikube allows you to run a local Kubernetes cluster."
+    },
+    {
+      "name": "Helm",
+      "install_command": "brew install helm",
+      "verify_command": "helm version",
+      "notes": "Helm is a package manager for Kubernetes."
+    },
+    {
+      "name": "Terraform",
+      "install_command": "brew install terraform",
+      "verify_command": "terraform --version",
+      "notes": "Terraform is an Infrastructure as Code (IaC) tool."
+    },
+    {
+      "name": "Ansible",
+      "install_command": "brew install ansible",
+      "verify_command": "ansible --version",
+      "notes": "Ansible is an open-source automation tool for configuration management and application deployment."
+    },
+    {
+      "name": "Jenkins",
+      "install_command": "brew install jenkins-lts",
+      "verify_command": "jenkins --version",
+      "notes": "Jenkins is an automation server for building, testing, and deploying applications."
+    },
+    {
+      "name": "Git",
+      "install_command": "brew install git",
+      "verify_command": "git --version",
+      "notes": "Git is a distributed version control system for source code management."
+    },
+    {
+      "name": "GitHub CLI (gh)",
+      "install_command": "brew install gh",
+      "verify_command": "gh --version",
+      "notes": "GitHub CLI provides a command-line interface for interacting with GitHub."
+    },
+    {
+      "name": "AWS CLI",
+      "install_command": "brew install awscli",
+      "verify_command": "aws --version",
+      "notes": "AWS CLI is a unified tool to manage AWS services from the command line."
+    },
+    {
+      "name": "Azure CLI",
+      "install_command": "brew install azure-cli",
+      "verify_command": "az --version",
+      "notes": "Azure CLI is a command-line tool to manage Azure resources."
+    },
+    {
+      "name": "Google Cloud SDK",
+      "install_command": "brew install --cask google-cloud-sdk",
+      "verify_command": "gcloud --version",
+      "notes": "Google Cloud SDK provides tools to interact with Google Cloud resources."
+    },
+    {
+      "name": "Prometheus",
+      "install_command": "brew install prometheus",
+      "verify_command": "prometheus --version",
+      "notes": "Prometheus is a monitoring and alerting toolkit."
+    },
+    {
+      "name": "Grafana",
+      "install_command": "brew install grafana",
+      "verify_command": "grafana-server -v",
+      "notes": "Grafana is a visualization tool for monitoring and observability."
+    },
+    {
+      "name": "ngrok",
+      "install_command": "brew install ngrok",
+      "verify_command": "ngrok --version",
+      "notes": "ngrok exposes local servers to the internet for testing."
+    },
+    {
+      "name": "k9s",
+      "install_command": "brew install k9s",
+      "verify_command": "k9s version",
+      "notes": "k9s is a terminal UI for managing Kubernetes clusters."
+    },
+    {
+      "name": "Vault",
+      "install_command": "brew install vault",
+      "verify_command": "vault --version",
+      "notes": "Vault is a tool for securely managing secrets and access to sensitive data."
+    },
+    {
+      "name": "Consul",
+      "install_command": "brew install consul",
+      "verify_command": "consul --version",
+      "notes": "Consul is a service mesh solution for connecting and securing applications."
+    },
+    {
+      "name": "Postman",
+      "install_command": "brew install --cask postman",
+      "verify_command": "brew list --cask | grep postman",
+      "notes": "Postman is an API testing tool."
+    },
+    {
+      "name": "nvm",
+      "install_command": "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash",
+      "verify_command": "nvm --version",
+      "notes": "nvm is a version manager for Node.js."
+    },
+    {
+      "name": "jq",
+      "install_command": "brew install jq",
+      "verify_command": "jq --version",
+      "notes": "jq is a lightweight command-line JSON processor."
+    },
+    {
+      "name": "HTTPie",
+      "install_command": "brew install httpie",
+      "verify_command": "http --version",
+      "notes": "HTTPie is a user-friendly HTTP client for the terminal."
+    },
+    {
+      "name": "asciinema",
+      "install_command": "brew install asciinema",
+      "verify_command": "asciinema --version",
+      "notes": "asciinema records and shares terminal sessions."
+    },
+    {
+      "name": "Vegeta",
+      "install_command": "brew install vegeta",
+      "verify_command": "vegeta -version",
+      "notes": "Vegeta is a load testing tool for HTTP services."
+    },
+    {
+      "name": "K6",
+      "install_command": "brew install k6",
+      "verify_command": "k6 version",
+      "notes": "K6 is a performance testing tool for modern web apps."
+    }
+  ]

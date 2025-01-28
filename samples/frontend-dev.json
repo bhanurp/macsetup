@@ -1,0 +1,158 @@
+[
+    {
+      "name": "Node.js",
+      "install_command": "brew install node",
+      "verify_command": "node --version",
+      "notes": "Node.js is required for running JavaScript on the backend and installing frontend dependencies."
+    },
+    {
+      "name": "npm",
+      "install_command": "brew install npm",
+      "verify_command": "npm --version",
+      "notes": "npm is a package manager for Node.js."
+    },
+    {
+      "name": "yarn",
+      "install_command": "brew install yarn",
+      "verify_command": "yarn --version",
+      "notes": "Yarn is an alternative package manager to npm."
+    },
+    {
+      "name": "Visual Studio Code (VS Code)",
+      "install_command": "brew install --cask visual-studio-code",
+      "verify_command": "brew list --cask | grep visual-studio-code",
+      "notes": "VS Code is a lightweight, extensible code editor popular for frontend development."
+    },
+    {
+      "name": "Vue.js CLI",
+      "install_command": "npm install -g @vue/cli",
+      "verify_command": "vue --version",
+      "notes": "Vue.js CLI is a standard tool for scaffolding and managing Vue.js projects."
+    },
+    {
+      "name": "React",
+      "install_command": "npm install -g create-react-app",
+      "verify_command": "npx create-react-app --version",
+      "notes": "React is a popular library for building user interfaces."
+    },
+    {
+      "name": "Vite",
+      "install_command": "npm install -g create-vite",
+      "verify_command": "vite --version",
+      "notes": "Vite is a fast build tool and development server for modern web projects, supporting frameworks like Vue and React."
+    },
+    {
+      "name": "Webpack",
+      "install_command": "npm install -g webpack webpack-cli",
+      "verify_command": "webpack --version",
+      "notes": "Webpack is a module bundler for JavaScript and assets."
+    },
+    {
+      "name": "React Developer Tools",
+      "install_command": "brew install --cask react-devtools",
+      "verify_command": "brew list --cask | grep react-devtools",
+      "notes": "React Developer Tools help debug React applications in the browser."
+    },
+    {
+      "name": "Chrome",
+      "install_command": "brew install --cask google-chrome",
+      "verify_command": "brew list --cask | grep google-chrome",
+      "notes": "Google Chrome is a widely used browser with powerful developer tools."
+    },
+    {
+      "name": "Firefox Developer Edition",
+      "install_command": "brew install --cask firefox-developer-edition",
+      "verify_command": "brew list --cask | grep firefox-developer-edition",
+      "notes": "Firefox Developer Edition is tailored for web developers."
+    },
+    {
+      "name": "Tailwind CSS CLI",
+      "install_command": "npm install -g tailwindcss",
+      "verify_command": "tailwindcss --version",
+      "notes": "Tailwind CSS is a utility-first CSS framework for rapid UI development."
+    },
+    {
+      "name": "PostCSS CLI",
+      "install_command": "npm install -g postcss-cli",
+      "verify_command": "postcss --version",
+      "notes": "PostCSS CLI processes styles with plugins for modern CSS."
+    },
+    {
+      "name": "TypeScript",
+      "install_command": "npm install -g typescript",
+      "verify_command": "tsc --version",
+      "notes": "TypeScript is a superset of JavaScript that adds static typing."
+    },
+    {
+      "name": "ESLint",
+      "install_command": "npm install -g eslint",
+      "verify_command": "eslint --version",
+      "notes": "ESLint helps identify and fix problems in JavaScript code."
+    },
+    {
+      "name": "Prettier",
+      "install_command": "npm install -g prettier",
+      "verify_command": "prettier --version",
+      "notes": "Prettier is a code formatter that enforces a consistent style."
+    },
+    {
+      "name": "SASS",
+      "install_command": "npm install -g sass",
+      "verify_command": "sass --version",
+      "notes": "SASS is a preprocessor scripting language that compiles into CSS."
+    },
+    {
+      "name": "Figma",
+      "install_command": "brew install --cask figma",
+      "verify_command": "brew list --cask | grep figma",
+      "notes": "Figma is a cloud-based design tool used for UI/UX design."
+    },
+    {
+      "name": "Storybook",
+      "install_command": "npx storybook init",
+      "verify_command": "npx storybook --version",
+      "notes": "Storybook is a tool for developing UI components in isolation."
+    },
+    {
+      "name": "Browsersync",
+      "install_command": "npm install -g browser-sync",
+      "verify_command": "browser-sync --version",
+      "notes": "Browsersync is a tool for live reloading during development."
+    },
+    {
+      "name": "Git",
+      "install_command": "brew install git",
+      "verify_command": "git --version",
+      "notes": "Git is a version control system essential for collaboration."
+    },
+    {
+      "name": "GitHub CLI (gh)",
+      "install_command": "brew install gh",
+      "verify_command": "gh --version",
+      "notes": "GitHub CLI provides a command-line interface for GitHub workflows."
+    },
+    {
+      "name": "ngrok",
+      "install_command": "brew install ngrok",
+      "verify_command": "ngrok --version",
+      "notes": "ngrok exposes local development servers to the internet."
+    },
+    {
+      "name": "asciinema",
+      "install_command": "brew install asciinema",
+      "verify_command": "asciinema --version",
+      "notes": "asciinema records and shares terminal sessions."
+    },
+    {
+      "name": "npm-check-updates",
+      "install_command": "npm install -g npm-check-updates",
+      "verify_command": "ncu --version",
+      "notes": "npm-check-updates upgrades project dependencies to the latest versions."
+    },
+    {
+        "name": "nvm",
+        "install_command": "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash",
+        "verify_command": "nvm --version",
+        "notes": "nvm is a version manager for Node.js, allowing you to install and switch between multiple versions of Node.js."
+    }
+  ]

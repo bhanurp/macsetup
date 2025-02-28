@@ -230,7 +230,3 @@ tools.json
 ## GitHub Actions
 
 The repository includes a GitHub Actions workflow to validate the installation of tools. The workflow checks if `tools.json` exists, installs the necessary tools, and validates their installation.
-
-X64 Build Status [![x64 Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&job=validate-macsetup&matrix.arch=x64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)
-
-ARM Build Status [![ARM Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&job=validate-macsetup&matrix.arch=arm64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)

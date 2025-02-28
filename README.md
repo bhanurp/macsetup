@@ -3,7 +3,6 @@
 # Mac Setup Script
 
 X64 [![x64 Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&job=validate-macsetup&matrix.arch=x64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)
-------------
 
 ARM [![ARM Build Status](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml/badge.svg?branch=main&event=push&job=validate-macsetup&matrix.arch=arm64)](https://github.com/bhanurp/macsetup/actions/workflows/validate-macsetup.yaml)
 ------------
